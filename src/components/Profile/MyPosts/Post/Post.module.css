@@ -1,0 +1,9 @@
+.item {
+    color: darkred;
+}
+
+.item img {
+    width: 55px;
+    height: 45px;
+    border-radius: 30px;
+}

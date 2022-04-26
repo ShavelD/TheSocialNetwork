@@ -1,5 +1,5 @@
 .app-wrapper {
-    width: 1266px;
+    width: 1366px;
     margin: 0 auto;
     display: grid;
     grid-template-areas:
@@ -10,20 +10,7 @@
     /*grid-gap: 10px;*/
 }
 
-.header {
-    grid-area: h;
-    background-color: bisque;
-}
-
-.header img {
-   width: 60px;
-}
-.nav {
-    grid-area: n;
-    background-color: cadetblue;
-}
-
-.content {
+.app-wrapper-content {
     grid-area: c;
-    background-color: darkgray;
+    background-color: cornflowerblue;
 }
