@@ -13,3 +13,16 @@
 .item a.activeLink {
     color: gold;
 }
+
+.flex {
+    margin-top: 40px;
+}
+.container {
+    display: flex;
+}
+
+.friends {
+    width: 25px;
+    border-radius: 50%;
+    background-color: red;
+}

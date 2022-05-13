@@ -1,18 +1,16 @@
 import React from "react";
 import s from './Profile.module.css'
-import {MyPosts} from "./MyPosts/MyPosts";
+import {MyPosts,  MyPostsProps} from "./MyPosts/MyPosts";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
-export function Profile() {
+
+
+export function Profile(props: MyPostsProps) {
+
     return (
         <div>
-            <div>
-                <img
-                    src="https://jssors8.azureedge.net/demos/image-slider/img/faded-monaco-scenery-evening-dark-picjumbo-com-image.jpg"/>
-            </div>
-            <div>
-                ava + description
-            </div>
-            <MyPosts />
+            <ProfileInfo />
+            <MyPosts posts={props.posts} />
         </div>
     )
 }
