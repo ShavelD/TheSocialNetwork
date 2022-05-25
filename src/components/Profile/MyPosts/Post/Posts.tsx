@@ -5,6 +5,7 @@ import {SidebarType} from "../../../../redux/state";
 export type PostsPropsType = {
     message: string
     likesCount: number
+    id: number
 }
 
 export function Posts(props: PostsPropsType) {
