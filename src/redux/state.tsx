@@ -43,7 +43,7 @@ let state: RootPropsType = {
             {id: 1, message: "Hi, how are you?", likesCount: 6},
             {id: 2, message: "It's my first post", likesCount: 10}
         ],
-        newPostText: 'it-kamasutra'
+        newPostText: ''
     },
     dialogsPage: {
         dialogs: [
@@ -68,10 +68,10 @@ let state: RootPropsType = {
 }
 
 
-export let addPost = (postMessage: string) => {
+export let addPost = () => {
     let newPost: PostsType = {
         id: 5,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         likesCount: 10
     }
     state.profilePage.posts.push(newPost)
