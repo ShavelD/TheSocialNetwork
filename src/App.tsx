@@ -5,16 +5,15 @@ import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {BrowserRouter, HashRouter, Route} from "react-router-dom";
-import state, {RootPropsType} from "./redux/state";
+import {StoreType} from "./redux/state";
 
+//
 type AppPropsType = {
-    state: RootPropsType
-    addPost: () => void
-    updateNewPostText: (newText: string) => void
+    store: StoreType
 }
 
-function App(props: AppPropsType) {
-
+function App(props: AppPropsType)  {
+   const state = props.store.getState()
     return (
         <HashRouter>
             <div className="app-wrapper">
@@ -23,15 +22,14 @@ function App(props: AppPropsType) {
                 <div className="app-wrapper-content">
                     {/*<Route path='/Dialogs' component={Dialogs}/>*/}
                     {/*<Route path='/Profile' component={Profile}/>*/}
-
                     <Route path='/Dialogs' render={() =>
-                        <Dialogs state={props.state.dialogsPage}
-                                 />}/>
+                        <Dialogs state={state.dialogsPage}
+                        />}/>
                     <Route path='/Profile' render={() =>
-                        <Profile state={props.state.profilePage}
-                                 addPost={props.addPost}
+                        <Profile state={state.profilePage}
+                                 dispatch={props.store.dispatch.bind(props.store)}
                                  newPostText={state.profilePage.newPostText}
-                                 updateNewPostText={props.updateNewPostText}
+                                 // updateNewPostText={props.store.updateNewPostText.bind(props.store)}
                         />}
                     />
                 </div>
