@@ -1,3 +1,7 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
+
 export let store: StoreType = {
     _state: {
         profilePage: {
@@ -80,6 +84,15 @@ export type UpdateNewPostTextActionType = {
     type: 'UPDATE-NEW-POST-TEXT'
     newText: string
 }
+
+
+export const AddPostAC = (newPostText: string): AddPostActionType => ({
+        type: ADD_POST, newPostText: newPostText
+})
+
+export const updateNewPostTextAC = (text: string) : UpdateNewPostTextActionType => ({
+        type: UPDATE_NEW_POST_TEXT, newText: text
+})
 
 export type StoreType = {
     _state: RootPropsType,
