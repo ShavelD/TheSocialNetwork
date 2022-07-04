@@ -1,6 +1,9 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
+const SEND_MESSAGE = 'SEND_MESSAGE'
+
 
 export let store: StoreType = {
     _state: {
@@ -24,7 +27,8 @@ export let store: StoreType = {
                 {id: 1, message: "Hi"},
                 {id: 2, message: "How is your it-kamasutra?"},
                 {id: 3, message: "Hello"}
-            ]
+            ],
+            newMessageBody: " "
         },
         sidebar: [
             {id: 1, name: "Dima"},
@@ -69,11 +73,22 @@ export let store: StoreType = {
         } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
             this._state.profilePage.newPostText = action.newText
             this._callSubscriber()  //
+        } else if (action.type === 'UPDATE_NEW_MESSAGE_BODY') {
+            this._state.dialogsPage.newMessageBody = action.body
+            this._callSubscriber()
+        } else if (action.type === 'SEND_MESSAGE') {
+            let body = this._state.dialogsPage.newMessageBody
+            this._state.dialogsPage.newMessageBody = ' ';
+            this._state.dialogsPage.messages.push({id: 3, message: body});
+            this._callSubscriber()
         }
     }
 }
 
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType
+export type ActionsTypes = AddPostActionType
+    | UpdateNewPostTextActionType
+    | UpdateNewMessageBodyActionType
+    | SendMessageActionType
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -85,13 +100,30 @@ export type UpdateNewPostTextActionType = {
     newText: string
 }
 
+export type UpdateNewMessageBodyActionType = {
+    type: 'UPDATE_NEW_MESSAGE_BODY'
+    body: string
+}
+
+export type SendMessageActionType = {
+    type: 'SEND_MESSAGE'
+}
+
 
 export const AddPostAC = (newPostText: string): AddPostActionType => ({
-        type: ADD_POST, newPostText: newPostText
+    type: ADD_POST, newPostText: newPostText
 })
 
-export const updateNewPostTextAC = (text: string) : UpdateNewPostTextActionType => ({
-        type: UPDATE_NEW_POST_TEXT, newText: text
+export const updateNewPostTextAC = (text: string): UpdateNewPostTextActionType => ({
+    type: UPDATE_NEW_POST_TEXT, newText: text
+})
+
+export const updateNewMessageBodyCreator = (body: string): UpdateNewMessageBodyActionType => ({
+    type: UPDATE_NEW_MESSAGE_BODY, body: body
+})
+
+export const SendMessageCreator = (): SendMessageActionType => ({
+    type: SEND_MESSAGE
 })
 
 export type StoreType = {
@@ -125,6 +157,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
+    newMessageBody: string
 }
 
 export type SidebarType = {
