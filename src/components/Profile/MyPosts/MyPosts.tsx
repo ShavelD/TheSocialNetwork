@@ -1,12 +1,9 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css';
 import {Posts} from "./Post/Posts";
-import {
-    ActionsTypes, AddPostAC,
-    AddPostActionType,
-    PostsType, updateNewPostTextAC,
-    UpdateNewPostTextActionType
-} from "../../../redux/state";
+import {ActionsTypes, PostsType,} from "../../../redux/state";
+import {AddPostCreator, updateNewPostTextCreator} from "../../../redux/profile-reducer";
+
 
 
 export type MyPostsPropsType = {
@@ -43,7 +40,7 @@ export function MyPosts(props: MyPostsPropsType) {
             // let text = newPostElement.current.value ;
             // props.addPost();
             // props.dispatch({type : 'ADD-POST',newPostText: props.newPostText})
-            let action = AddPostAC(props.newPostText)
+            let action = AddPostCreator(props.newPostText)
             props.dispatch(action)
         }
     }
@@ -53,7 +50,7 @@ export function MyPosts(props: MyPostsPropsType) {
             let text = newPostElement.current.value;
             // props.updateNewPostText(text)
             // props.dispatch({type:'UPDATE-NEW-POST-TEXT', newText:text})
-            let action = updateNewPostTextAC(text)
+            let action = updateNewPostTextCreator(text)
             props.dispatch(action)
         }
     }
