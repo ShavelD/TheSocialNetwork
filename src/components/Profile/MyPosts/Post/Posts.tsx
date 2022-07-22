@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Post.module.css';
-import {SidebarType} from "../../../../redux/state";
+import {SidebarType} from "../../../../redux/store";
 
 export type PostsPropsType = {
     message: string

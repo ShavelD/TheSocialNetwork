@@ -1,17 +1,15 @@
 import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css';
 import {Posts} from "./Post/Posts";
-import {ActionsTypes, PostsType,} from "../../../redux/state";
-import {AddPostCreator, updateNewPostTextCreator} from "../../../redux/profile-reducer";
+import {PostsType, RootPropsType} from "../../../redux/store";
 
 
 
 export type MyPostsPropsType = {
-    state: PostsType[]
+    posts: PostsType[]
     newPostText: string
-    dispatch: (action: ActionsTypes) => void
-    // addPost: () => void
-    // updateNewPostText: (newText: string) => void
+    addPost: () => void
+    updateNewPostText: (newText: string) => void
 }
 
 export function MyPosts(props: MyPostsPropsType) {
@@ -28,30 +26,30 @@ export function MyPosts(props: MyPostsPropsType) {
     //     }
     // }
 
-    let postsElements = props.state.map((p) =>
+    let postsElements = props.posts.map((p) =>
         <Posts key={p.id}
                id={p.id}
                message={p.message}
                likesCount={p.likesCount}/>)
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
-    let addPost = () => {
-        if (newPostElement.current) {
+    let onAddPost = () => {
+        // if (newPostElement.current) {
             // let text = newPostElement.current.value ;
-            // props.addPost();
+            props.addPost();
             // props.dispatch({type : 'ADD-POST',newPostText: props.newPostText})
-            let action = AddPostCreator(props.newPostText)
-            props.dispatch(action)
-        }
+            // let action = AddPostCreator(props.newPostText)
+            // props.dispatch(action)
+        // }
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         if (newPostElement.current) {
             let text = newPostElement.current.value;
-            // props.updateNewPostText(text)
+            props.updateNewPostText(text)
             // props.dispatch({type:'UPDATE-NEW-POST-TEXT', newText:text})
-            let action = updateNewPostTextCreator(text)
-            props.dispatch(action)
+            // let action = updateNewPostTextCreator(text)
+            // props.dispatch(action)
         }
     }
 
@@ -67,7 +65,7 @@ export function MyPosts(props: MyPostsPropsType) {
                     />
                 </div>
                 <div>
-                    <button onClick={addPost}>Add post</button>
+                    <button onClick={onAddPost}>Add post</button>
                 </div>
             </div>
             <div className={s.posts}>

@@ -3,30 +3,30 @@ import {NavLink} from 'react-router-dom'
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import { ActionsTypes,StoreType} from "../../redux/state";
+import {ActionsTypes, DialogsPageType, DialogsType, StoreType} from "../../redux/store";
 import {SendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 
 
 type DialogsPropsType = {
-    store: StoreType
-    dispatch: (body: ActionsTypes) => void
+    updateNewMessageBody: (body: string) => void
+    sendMessage: () => void
+    dialogsPage: DialogsPageType
 }
 
 export function Dialogs(props: DialogsPropsType) {
-    let state = props.store.getState().dialogsPage
+    let state = props.dialogsPage
 
     let dialogsElements = state.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
     let messagesElements = state.messages.map(m => <Message key={m.id} message={m.message} id={m.id}/>)
     let newMessageBody = state.newMessageBody;
 
     let onSendMessageClick = () => {
-      props.dispatch(SendMessageCreator())
+      props.sendMessage()
     }
 
     let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let body = e.currentTarget.value
-        let action = updateNewMessageBodyCreator(body)
-        props.dispatch(action)
+        props.updateNewMessageBody(body)
     }
 
     return (

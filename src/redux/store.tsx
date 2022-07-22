@@ -89,10 +89,6 @@ export type SendMessageActionType = {
     type: 'SEND-MESSAGE'
 }
 
-
-
-
-
 export type StoreType = {
     _state: RootPropsType,
     updateNewPostText: (newText: string) => void,
@@ -101,6 +97,7 @@ export type StoreType = {
     getState: () => RootPropsType,
     addPost: () => void,
     dispatch: (action: ActionsTypes) => void
+    // newPostText: string
 }
 
 export type DialogsType = {
