@@ -2,7 +2,6 @@ import React from "react";
 import {ActionsTypes, PostsType, StoreType,} from "../../../redux/store";
 import {MyPosts} from "./MyPosts";
 import {AddPostCreator, updateNewPostTextCreator} from "../../../redux/profile-reducer";
-import store from "../../../redux/redux-store";
 import {StoreContext} from "../../../StoreContext";
 
 
@@ -14,6 +13,7 @@ export function MyPostsContainer() {
         <StoreContext.Consumer>
             {(store) => {
                 let state = store.getState()
+
 
                 let onAddPost = () => {
                     let action = AddPostCreator(state.profilePage.newPostText) ///

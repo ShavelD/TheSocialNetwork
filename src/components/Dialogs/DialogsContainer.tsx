@@ -1,11 +1,8 @@
-import React, {ChangeEvent} from 'react'
-import {StoreType} from "../../redux/store";
+import React from 'react'
 import {SendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
-import store from "../../redux/redux-store";
 import {StoreContext} from "../../StoreContext";
-import {AddPostCreator, updateNewPostTextCreator} from "../../redux/profile-reducer";
-import {MyPosts} from "../Profile/MyPosts/MyPosts";
+
 
 
 export function DialogsContainer() {

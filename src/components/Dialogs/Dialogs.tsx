@@ -1,10 +1,8 @@
 import React, {ChangeEvent} from 'react'
-import {NavLink} from 'react-router-dom'
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
-import {ActionsTypes, DialogsPageType, DialogsType, StoreType} from "../../redux/store";
-import {SendMessageCreator, updateNewMessageBodyCreator} from "../../redux/dialogs-reducer";
+import {DialogsPageType} from "../../redux/store";
 
 
 type DialogsPropsType = {
