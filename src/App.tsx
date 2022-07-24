@@ -10,7 +10,6 @@ import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
 function App() {
-    // let state = props.store.getState()
     return (
         <HashRouter>
             <div className="app-wrapper">
