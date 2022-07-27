@@ -44,7 +44,6 @@ let mapStateToProps = (state: RootPropsType) => {
     }
 }
 
-
 let mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
     return {
         updateNewPostText: (text: string) => {

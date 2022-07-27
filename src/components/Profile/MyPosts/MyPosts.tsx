@@ -4,7 +4,6 @@ import {Posts} from "./Post/Posts";
 import {PostsType} from "../../../redux/store";
 
 
-
 export type MyPostsPropsType = {
     posts: PostsType[]
     newPostText: string
@@ -35,11 +34,11 @@ export function MyPosts(props: MyPostsPropsType) {
 
     let onAddPost = () => {
         // if (newPostElement.current) {
-            // let text = newPostElement.current.value ;
-            props.addPost();
-            // props.dispatch({type : 'ADD-POST',newPostText: props.newPostText})
-            // let action = AddPostCreator(props.newPostText)
-            // props.dispatch(action)
+        // let text = newPostElement.current.value ;
+        props.addPost();
+        // props.dispatch({type : 'ADD-POST',newPostText: props.newPostText})
+        // let action = AddPostCreator(props.newPostText)
+        // props.dispatch(action)
         // }
     }
 

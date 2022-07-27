@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import {ActionsTypes, RootPropsType} from "../../redux/store";
 
 
-
 // export function DialogsContainer() {
 //     return (
 //         <StoreContext.Consumer>
@@ -46,4 +45,4 @@ let mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps,mapDispatchToProps)(Dialogs)
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)

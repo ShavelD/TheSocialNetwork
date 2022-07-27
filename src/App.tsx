@@ -7,8 +7,6 @@ import {HashRouter, Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 
-
-
 function App() {
     return (
         <HashRouter>
@@ -16,8 +14,8 @@ function App() {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path='/Dialogs' render={() => <DialogsContainer />}/>
-                    <Route path='/Profile' render={() => <Profile />}
+                    <Route path='/Dialogs' render={() => <DialogsContainer/>}/>
+                    <Route path='/Profile' render={() => <Profile/>}
                     />
                 </div>
             </div>
