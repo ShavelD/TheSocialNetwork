@@ -47,10 +47,12 @@ let mapStateToProps = (state: RootPropsType) => {
 let mapDispatchToProps = (dispatch: (action: ActionsTypes) => void) => {
     return {
         updateNewPostText: (text: string) => {
-            dispatch(updateNewPostTextCreator(text))
+            let action = updateNewPostTextCreator(text)
+            dispatch(action)
         },
         addPost: () => {
-            dispatch(AddPostCreator(store.getState().profilePage.newPostText))
+            let action = AddPostCreator(store.getState().profilePage.newPostText)
+            dispatch(action)
         }
     }
 }
