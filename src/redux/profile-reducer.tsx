@@ -20,7 +20,6 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
                 message: state.newPostText,
                 likesCount: 10
             }
-
             return {
                 ...state,
                 posts: [...state.posts, newPost],

@@ -5,7 +5,7 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {HashRouter, Route} from "react-router-dom";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
-
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 function App() {
     return (
@@ -15,8 +15,8 @@ function App() {
                 <Navbar/>
                 <div className="app-wrapper-content">
                     <Route path='/Dialogs' render={() => <DialogsContainer/>}/>
-                    <Route path='/Profile' render={() => <Profile/>}
-                    />
+                    <Route path='/Profile' render={() => <Profile/>}/>
+                    <Route path='/Users' render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </HashRouter>

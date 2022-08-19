@@ -11,6 +11,13 @@ export let store: StoreType = {
             ],
             newPostText: ''
         },
+        usersPage: {
+            users: [
+                {id: 1, photoUrl: "", followed: false,fullName: "Dmitry Sh",status: "I am a boss",location: {city: "Minsk", country: "Belarus"}},
+        { id: 1, photoUrl: "", followed: true,fullName: "Alex Sm",status: "I am a boss",location: {city: "Moscow", country: "Russian"}},
+                {id: 1,  photoUrl: "", followed: false,fullName: "Andrey Sh",status: "I am a boss",location: {city: "London", country: "England"}},
+            ]
+        },
         dialogsPage: {
             dialogs: [
                 {id: 1, name: "Dima"},
@@ -69,6 +76,9 @@ export type ActionsTypes = AddPostActionType
     | UpdateNewPostTextActionType
     | UpdateNewMessageBodyActionType
     | SendMessageActionType
+    | FollowActionType
+    | unFollowActionType
+    | setUsersActionType
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -88,6 +98,22 @@ export type UpdateNewMessageBodyActionType = {
 export type SendMessageActionType = {
     type: 'SEND-MESSAGE'
 }
+
+export type FollowActionType = {
+    type: 'FOLLOW',
+    userId: number
+}
+
+export type unFollowActionType = {
+    type: 'UNFOLLOW',
+    userId: number
+}
+
+export type setUsersActionType = {
+    type: 'SET-USERS',
+    users: UsersType[]
+}
+
 
 export type StoreType = {
     _state: RootPropsType,
@@ -114,10 +140,28 @@ export type PostsType = {
     message: string
     likesCount: number
 }
+
+export type UsersType = {
+    id: number
+    photoUrl: string
+    followed: boolean
+    fullName: string
+    status: string
+    location: {
+        city: string,
+        country: string
+    }
+}
+
 export type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
 }
+
+export type UsersPageType = {
+    users: UsersType[]
+}
+
 export type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
@@ -131,6 +175,7 @@ export type SidebarType = {
 
 export type RootPropsType = {
     profilePage: ProfilePageType
+    usersPage: UsersPageType
     dialogsPage: DialogsPageType
     sidebar: SidebarType[]
 }
