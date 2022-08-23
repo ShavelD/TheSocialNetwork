@@ -1,5 +1,5 @@
 import React from "react";
-import {ActionsTypes} from "./store";
+import {ActionsTypes} from "./types";
 
 let initialState = [
     {id: 1, name: "Dima"},
@@ -8,7 +8,6 @@ let initialState = [
 ]
 
  const profileReducer = (state: any = initialState,action: ActionsTypes) => {
-
     return state;
 }
 

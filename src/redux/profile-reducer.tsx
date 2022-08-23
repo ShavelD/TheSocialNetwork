@@ -1,5 +1,32 @@
 import React from "react";
-import {ActionsTypes, AddPostActionType, PostsType, ProfilePageType, UpdateNewPostTextActionType} from "./store";
+import {ActionsTypes} from "./types";
+
+export type AddPostActionType = {
+    type: 'ADD-POST'
+    newPostText: string
+}
+
+export type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    newText: string
+}
+
+export type UpdateNewMessageBodyActionType = {
+    type: 'UPDATE-NEW-MESSAGE-BODY'
+    body: string
+}
+
+
+export type PostsType = {
+    id: number
+    message: string
+    likesCount: number
+}
+
+export type ProfilePageType = {
+    posts: PostsType[]
+    newPostText: string
+}
 
 export const ADD_POST = 'ADD-POST';
 export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';

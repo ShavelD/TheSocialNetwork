@@ -1,12 +1,12 @@
 import React from "react";
 import {MyPosts} from "./MyPosts";
 import {AddPostCreator, updateNewPostTextCreator} from "../../../redux/profile-reducer";
-import {ActionsTypes, RootPropsType} from "../../../redux/store";
-import {store} from "../../../redux/redux-store";
+import store, {AppStateType} from "../../../redux/redux-store";
 import {connect} from "react-redux";
+import {ActionsTypes} from "../../../redux/types";
 
 
-let mapStateToProps = (state: RootPropsType) => {
+let mapStateToProps = (state: AppStateType) => {
     return {
         posts: state.profilePage.posts,
         newPostText: state.profilePage.newPostText

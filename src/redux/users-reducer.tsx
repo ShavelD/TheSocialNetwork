@@ -1,47 +1,39 @@
 import React from "react";
-import {
-    ActionsTypes,
-    FollowActionType,
-    setUsersActionType,
-    unFollowActionType,
-    UsersPageType,
-    UsersType
-} from "./store";
+import {UsersPageType, UsersType, UsersLocationType} from "../components/Users/Users";
+import {ActionsTypes} from "./types";
+
+export type SendMessageActionType = {
+    type: 'SEND-MESSAGE'
+}
+
+export type FollowActionType = {
+    type: 'FOLLOW',
+    userId: number
+}
+
+export type unFollowActionType = {
+    type: 'UNFOLLOW',
+    userId: number
+}
+
+export type setUsersActionType = {
+    type: 'SET-USERS',
+    users: UsersType[]
+}
 
 export const FOLLOW = 'FOLLOW';
 export const UNFOLLOW = 'UNFOLLOW';
 export const SET_USERS = 'SET-USERS';
 
-let initialState = {
-    users: [
-        {
-            id: 1,
-            photoUrl: "",
-            followed: false,
-            fullName: "Dmitry Sh",
-            status: "I am a boss",
-            location: {city: "Minsk", country: "Belarus"}
-        },
-        {
-            id: 1,
-            photoUrl: "",
-            followed: true,
-            fullName: "Alex Sm",
-            status: "I am a boss",
-            location: {city: "Moscow", country: "Russian"}
-        },
-        {
-            id: 1,
-            photoUrl: "",
-            followed: false,
-            fullName: "Andrey Sh",
-            status: "I am a boss",
-            location: {city: "London", country: "England"}
-        },
-    ]
+const initialState: InitialStateType = {
+    users: []
 }
 
-const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes) => {
+export type InitialStateType = {
+    users: UsersType[]
+}
+
+const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case FOLLOW:
             return {
@@ -56,7 +48,7 @@ const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes)
         case SET_USERS: {
             return {
                 ...state,
-                users: [...state.users, ...action.users]
+                users: [...action.users]
             }
         }
         default:
@@ -65,14 +57,12 @@ const usersReducer = (state: UsersPageType = initialState, action: ActionsTypes)
 }
 
 
-export const followCreator = (userId: number): FollowActionType => ({
-    type: FOLLOW, userId
-})
-export const unfollowCreator = (userId: number): unFollowActionType => ({
-    type: UNFOLLOW, userId
-})
-export const setUsersCreator = (users: UsersType[]): setUsersActionType => ({
-    type: SET_USERS, users
-})
+export const followCreator = (userId: number): FollowActionType => (
+    {type: FOLLOW, userId} as const)
+export const unfollowCreator = (userId: number): unFollowActionType => (
+    {type: UNFOLLOW, userId} as const)
+export const setUsersCreator = (users: UsersType[]): setUsersActionType => (
+    {type: SET_USERS, users} as const
+)
 
 export default usersReducer;

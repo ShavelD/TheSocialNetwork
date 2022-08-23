@@ -1,8 +1,25 @@
 import React from "react";
-import {ActionsTypes, DialogsPageType, SendMessageActionType, UpdateNewMessageBodyActionType} from "./store";
+import {ActionsTypes} from "./types";
+import {SendMessageActionType} from "./users-reducer";
+import {UpdateNewMessageBodyActionType} from "./profile-reducer";
 
 export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 export const SEND_MESSAGE = 'SEND-MESSAGE'
+
+export type DialogsType = {
+    id: number
+    name: string
+}
+export type MessagesType = {
+    id: number
+    message: string
+}
+
+export type DialogsPageType = {
+    dialogs: DialogsType[]
+    messages: MessagesType[]
+    newMessageBody: string
+}
 
 let initialState = {
     dialogs: [
@@ -12,16 +29,18 @@ let initialState = {
         {id: 4, name: "Sveta"},
         {id: 5, name: "Ann"},
         {id: 6, name: "Andrey"}
-    ],
+    ] as DialogsType[],
     messages: [
         {id: 1, message: "Hi"},
         {id: 2, message: "How is your it-kamasutra?"},
         {id: 3, message: "Hello"}
-    ],
+    ] as MessagesType[] ,
     newMessageBody: " "
 }
 
-const dialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes) => {
+export type InitialStateType = typeof initialState
+
+const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
             return {
