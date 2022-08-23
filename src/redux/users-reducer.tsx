@@ -1,5 +1,5 @@
 import React from "react";
-import {UsersPageType, UsersType, UsersLocationType} from "../components/Users/Users";
+import {UsersType} from "../components/Users/Users";
 import {ActionsTypes} from "./types";
 
 export type SendMessageActionType = {
