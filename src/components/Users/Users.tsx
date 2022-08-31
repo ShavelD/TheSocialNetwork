@@ -1,14 +1,30 @@
 import React from 'react';
 import s from './Users.module.css'
 import {UsersPropsType} from "./UsersContainer";
+import axios from "axios";
+import userPhoto from './../../components/assets/images/users.png'
 
 export type UsersType = {
     id: number
-    photoUrl: string
+    photos: {
+        small: string
+        large: string
+    }
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: UsersLocationType
+// {
+//     name: string
+//     id: number
+//     uniqueUrlName: string
+//     photos: {
+//         small: string
+//         large: string
+//     }
+//     status: string
+//     followed: boolean
+// }
 }
 
 export type UsersLocationType ={
@@ -22,42 +38,18 @@ export type UsersPageType = {
 
 export const Users = (props: UsersPropsType) => {
     if (props.usersPage.users.length === 0) {
-        props.setUsers([
-                {
-                    id: 1,
-                    photoUrl: "https://ratatum.com/wp-content/uploads/2018/08/5-10.jpg",
-                    followed: false,
-                    fullName: "Dmitry Sh",
-                    status: "I am a boss",
-                    location: {city: "Minsk", country: "Belarus"}
-                },
-                {
-                    id: 2,
-                    photoUrl: "https://basetop.ru/wp-content/uploads/2018/05/3uptm24x.jpg",
-                    followed: true,
-                    fullName: "Alex Sm",
-                    status: "I am a boss",
-                    location: {city: "Moscow", country: "Russian"}
-                },
-                {
-                    id: 3,
-                    photoUrl: "https://womans.ws/wp-content/uploads/2020/05/5.jpg",
-                    followed: false,
-                    fullName: "Andrey Sh",
-                    status: "I am a boss",
-                    location: {city: "London", country: "England"}
-                },
-            ]
-        )
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            debugger
+            props.setUsers(response.data.items)
+            })
     }
-
 
     return <div className={s.container}>
         {
             props.usersPage.users.map(u => <div key={u.id}>
                     <span>
                        <div>
-                           <img src={u.photoUrl} className={s.userPhoto}/>
+                           <img src={u.photos.small != null ? u.photos.small : userPhoto} className={s.userPhoto}/>
                        </div>
                        <div>
                            {u.followed
@@ -67,12 +59,12 @@ export const Users = (props: UsersPropsType) => {
                    </span>
                 <span>
                        <span>
-                           <div>{u.fullName}</div>
+                           <div>{u.name}</div>
                            <div>{u.status}</div>
                        </span>
                     <span>
-                           <div>{u.location.country}</div>
-                           <div>{u.location.city}</div>
+                           <div>{'u.location.country'}</div>
+                           <div>{'u.location.city'}</div>
                        </span>
                    </span>
             </div>)
