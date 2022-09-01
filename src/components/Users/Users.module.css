@@ -5,5 +5,14 @@
 
 .container {
     padding: 10px 10px;
-
 }
+
+.selectedPage {
+    font-weight: bold;
+    color: gold;
+}
+
+/*.default {*/
+/*    font-weight: bold;*/
+/*    color: gold;*/
+/*}*/

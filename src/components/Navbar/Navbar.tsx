@@ -12,6 +12,9 @@ export function Navbar() {
             <div className={`${s.item} ${s.active}`}>
                 <NavLink to="/dialogs" activeClassName={s.activeLink}>Message</NavLink>
             </div>
+            <div className={`${s.item} ${s.active}`}>
+                <NavLink to="/users" activeClassName={s.activeLink}>Users</NavLink>
+            </div>
             <div className={s.item}>
                 <NavLink to="/News" activeClassName={s.activeLink}>News</NavLink>
             </div>

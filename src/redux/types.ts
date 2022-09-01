@@ -1,4 +1,10 @@
-import {FollowActionType, SendMessageActionType, setUsersActionType, unFollowActionType} from "./users-reducer";
+import {
+    FollowActionType,
+    SendMessageActionType,
+    setCurrentActionType, setTotalCountActionType,
+    setUsersActionType,
+    unFollowActionType
+} from "./users-reducer";
 import {AddPostActionType, UpdateNewMessageBodyActionType, UpdateNewPostTextActionType} from "./profile-reducer";
 
 export type ActionsTypes = AddPostActionType
@@ -8,3 +14,5 @@ export type ActionsTypes = AddPostActionType
     | FollowActionType
     | unFollowActionType
     | setUsersActionType
+    | setCurrentActionType
+    | setTotalCountActionType
