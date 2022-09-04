@@ -1,6 +1,6 @@
 import React from "react";
-import {UsersType} from "../components/Users/Users";
 import {ActionsTypes} from "./types";
+import {UsersType} from "../components/Users/Users";
 
 export type SendMessageActionType = {
     type: 'SEND-MESSAGE'
@@ -70,14 +70,14 @@ const usersReducer = (state: InitialStateType = initialState, action: ActionsTyp
             }
         }
         case SET_CURRENT_PAGE: {
-                return {
-                    ...state,
-                    currentPage: action.currentPage
+            return {
+                ...state,
+                currentPage: action.currentPage
             }
         }
         case SET_TOTAL_COUNT_USERS: {
             debugger
-                return {...state,totalUsersCount: action.count}
+            return {...state, totalUsersCount: action.count}
         }
         default:
             return state
