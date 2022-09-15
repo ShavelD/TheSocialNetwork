@@ -1,7 +1,6 @@
 import {connect} from "react-redux";
 import {
     followCreator,
-    InitialStateType,
     setCurrentPageCreator,
     setUsersCreator,
     unfollowCreator,
