@@ -1,11 +1,11 @@
 import {connect} from "react-redux";
 import {
-    followCreator,
-    setCurrentPageCreator,
-    setUsersCreator,
-    unfollowCreator,
-    setTotalUsersCountCreator,
-    toggleIsFetchingCreator
+    follow,
+    setCurrentPage,
+    setUsers,
+    unfollow,
+    setTotalUsersCount,
+    toggleIsFetching
 } from "../../redux/users-reducer";
 import s from "./Users.module.css"
 import {AppStateType} from "../../redux/redux-store";
@@ -13,7 +13,6 @@ import {Dispatch} from "redux";
 import React from "react";
 import axios from "axios";
 import Users, {UsersType} from "./Users";
-import preloader from  "./../../components/assets/images/Skateboarding.gif"
 import Preloader from "../common/Preloader/Preloader";
 
 
@@ -60,7 +59,7 @@ class UsersContainer extends React.Component<UsersPropsType, {}> {
 
         return <>
             {this.props.isFetching ?
-                <Preloader />
+                <Preloader/>
                 : null}
             <Users totalUsersCount={this.props.totalUsersCount}
                    pageSize={this.props.pageSize}
@@ -84,27 +83,34 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
     }
 }
 
-let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-    return {
-        follow: ((userId: number) => {
-            dispatch(followCreator(userId))
-        }),
-        unfollow: ((userId: number) => {
-            dispatch(unfollowCreator(userId))
-        }),
-        setUsers: ((users: UsersType[]) => {
-            dispatch(setUsersCreator(users))
-        }),
-        setCurrentPage: ((pageNumber: number) => {
-            dispatch(setCurrentPageCreator(pageNumber))
-        }),
-        setTotalUsersCount: ((totalUsersCount: number) => {
-            dispatch(setTotalUsersCountCreator(totalUsersCount))
-        }),
-        toggleIsFetching: ((isFetching: boolean) => {
-            dispatch(toggleIsFetchingCreator(isFetching))
-        })
-    }
-}
+// let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+//     return {
+//         follow: ((userId: number) => {
+//             dispatch(followCreator(userId))
+//         }),
+//         unfollow: ((userId: number) => {
+//             dispatch(unfollowCreator(userId))
+//         }),
+//         setUsers: ((users: UsersType[]) => {
+//             dispatch(setUsersCreator(users))
+//         }),
+//         setCurrentPage: ((pageNumber: number) => {
+//             dispatch(setCurrentPageCreator(pageNumber))
+//         }),
+//         setTotalUsersCount: ((totalUsersCount: number) => {
+//             dispatch(setTotalUsersCountCreator(totalUsersCount))
+//         }),
+//         toggleIsFetching: ((isFetching: boolean) => {
+//             dispatch(toggleIsFetchingCreator(isFetching))
+//         })
+//     }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer)
+export default connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setCurrentPage,
+    setTotalUsersCount,
+    toggleIsFetching
+})(UsersContainer)
