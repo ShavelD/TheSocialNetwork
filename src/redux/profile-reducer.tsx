@@ -1,5 +1,6 @@
 import React from "react";
 import {ActionsTypes} from "./types";
+import {ProfileType, PropsType} from "../components/Profile/Profile";
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -16,6 +17,11 @@ export type UpdateNewMessageBodyActionType = {
     body: string
 }
 
+export type SetUserProfileActionType = {
+    type: 'SET-USER-PROFILE'
+    profile: ProfileType
+}
+
 
 export type PostsType = {
     id: number
@@ -26,17 +32,41 @@ export type PostsType = {
 export type ProfilePageType = {
     posts: PostsType[]
     newPostText: string
+    profile: ProfileType
 }
 
 export const ADD_POST = 'ADD-POST';
 export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+export const SET_USER_PROFILE = 'SET-USER-PROFILE';
 
 let initialState = {
     posts: [
         {id: 1, message: "Hi, how are you?", likesCount: 6},
         {id: 2, message: "It's my first post", likesCount: 10}
     ],
-    newPostText: ''
+    newPostText: '',
+    profile: {
+        aboutMe: '',
+        contacts: {
+            facebook: '',
+            website: '',
+            vk: '',
+            twitter: '',
+            instagram: '',
+            youtube: '',
+            github: '',
+            mainLink: '',
+        },
+        lookingForAJob: true,
+        lookingForAJobDescription: '',
+        fullName: '',
+        userId: 1,
+        photos: {
+            small: '',
+            large: '',
+        },
+    },
+    status: '',
 }
 
 const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
@@ -57,6 +87,11 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
                 ...state,
                 newPostText: action.newText
             }
+        case SET_USER_PROFILE:
+            return {
+                ...state,
+                profile: action.profile
+            }
         default:
             return state
 
@@ -64,11 +99,15 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 }
 
 export const AddPostCreator = (newPostText: string): AddPostActionType => ({
-    type: ADD_POST, newPostText: newPostText
-})
+    type: ADD_POST, newPostText: newPostText} as const
+)
 
 export const updateNewPostTextCreator = (text: string): UpdateNewPostTextActionType => ({
-    type: UPDATE_NEW_POST_TEXT, newText: text
-})
+    type: UPDATE_NEW_POST_TEXT, newText: text} as const
+)
+
+export const SetUserProfile = (profile: ProfileType): SetUserProfileActionType => ({
+    type: SET_USER_PROFILE, profile } as const
+)
 
 export default profileReducer;
