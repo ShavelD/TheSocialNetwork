@@ -12,19 +12,6 @@ export type MyPostsPropsType = {
 }
 
 export function MyPosts(props: MyPostsPropsType) {
-
-    // let AddPostAC = (): AddPostActionType => {
-    //     return {
-    //         type: 'ADD-POST', newPostText: props.newPostText
-    //     }
-    // }
-    //
-    // let updateNewPostTextAC = (text: string) : UpdateNewPostTextActionType => {
-    //     return {
-    //         type: 'UPDATE-NEW-POST-TEXT', newText: text
-    //     }
-    // }
-
     let postsElements = props.posts.map((p) =>
         <Posts key={p.id}
                id={p.id}
@@ -33,25 +20,15 @@ export function MyPosts(props: MyPostsPropsType) {
     let newPostElement = React.createRef<HTMLTextAreaElement>();
 
     let onAddPost = () => {
-        // if (newPostElement.current) {
-        // let text = newPostElement.current.value ;
         props.addPost();
-        // props.dispatch({type : 'ADD-POST',newPostText: props.newPostText})
-        // let action = AddPostCreator(props.newPostText)
-        // props.dispatch(action)
-        // }
     }
 
     let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         if (newPostElement.current) {
             let text = newPostElement.current.value;
             props.updateNewPostText(text)
-            // props.dispatch({type:'UPDATE-NEW-POST-TEXT', newText:text})
-            // let action = updateNewPostTextCreator(text)
-            // props.dispatch(action)
         }
     }
-
 
     return (
         <div className={s.postsBlock}>
