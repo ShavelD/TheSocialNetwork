@@ -15,9 +15,9 @@ function App() {
                 <Header/>
                 <Navbar/>
                 <div className="app-wrapper-content">
-                    <Route path='/Dialogs' render={() => <DialogsContainer/>}/>
-                    <Route path='/Profile' render={() => <ProfileContainer/>}/>
-                    <Route path='/Users' render={() => <UsersContainer/>}/>
+                    <Route path='/Dialogs/' render={() => <DialogsContainer/>}/>
+                    <Route path='/Profile/:userId?' render={() => <ProfileContainer/>}/>
+                    <Route path='/Users/' render={() => <UsersContainer/>}/>
                 </div>
             </div>
         </HashRouter>

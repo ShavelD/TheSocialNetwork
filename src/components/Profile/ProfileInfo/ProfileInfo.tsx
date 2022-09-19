@@ -15,8 +15,8 @@ export function ProfileInfo(props: PropsType) {
                     src="https://jssors8.azureedge.net/demos/image-slider/img/faded-monaco-scenery-evening-dark-picjumbo-com-image.jpg"/>
             </div>
             <div className={s.descriptionBlock}>
-                <div><img alt='profile-img' src={props.profile.photos.large} /></div>
-                ava + description
+                <div><img alt='profile-img' src={props.profile.photos.large}/></div>
+               ava + description
             </div>
         </div>
     )
