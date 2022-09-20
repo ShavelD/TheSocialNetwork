@@ -19,9 +19,7 @@ type mapStateToPropsType = {
 }
 
 type OwnPropsType = mapDispatchToPropsType & mapStateToPropsType
-
 type PropsType = RouteComponentProps<PathUserIdType> & OwnPropsType
-
 class ProfileContainer extends React.Component<PropsType, {}> {
 
     componentDidMount() {
