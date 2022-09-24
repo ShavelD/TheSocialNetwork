@@ -7,9 +7,7 @@ import {
     setTotalUsersCount,
     toggleIsFetching
 } from "../../redux/users-reducer";
-import s from "./Users.module.css"
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
 import React from "react";
 import axios from "axios";
 import Users, {UsersType} from "./Users";
