@@ -68,7 +68,7 @@ let Users = (props: PropsType) => {
                        <div>
                            {u.followed
                                ? <button onClick={() => {
-                                   usersAPI.deleteUnffolow()
+                                   usersAPI.deleteUnffolow(u.id)
                                        .then(data => {
                                            if (data.resultCode === 0) {
                                                props.unfollow(u.id)
@@ -76,7 +76,7 @@ let Users = (props: PropsType) => {
                                        })
                                }}>Unfollow</button>
                                : <button onClick={() => {
-                                   usersAPI.getFollow()
+                                   usersAPI.getFollow(u.id)
                                        .then(data => {
                                            if (data.resultCode === 0) {
                                                props.follow(u.id)
