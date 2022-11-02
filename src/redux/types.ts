@@ -1,7 +1,7 @@
 import {
     FollowActionType,
     SendMessageActionType,
-    setCurrentActionType, setIsFetchingActionType, setTotalCountActionType,
+    setCurrentActionType, setFolowingIsProgressActionType, setIsFetchingActionType, setTotalCountActionType,
     setUsersActionType,
     unFollowActionType
 } from "./users-reducer";
@@ -25,3 +25,4 @@ export type ActionsTypes = AddPostActionType
     | setIsFetchingActionType
     | SetUserProfileActionType
     | setUserDataActionType
+    | setFolowingIsProgressActionType

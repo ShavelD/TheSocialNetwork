@@ -34,6 +34,8 @@ type PropsType = {
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     onPageChange: (pageNumber: number) => void
+    toogleFolowingIsProgress: (isFetching: boolean, userId: number) => void
+    folowingIsProgress: number[]
 }
 
 let Users = (props: PropsType) => {
@@ -66,20 +68,24 @@ let Users = (props: PropsType) => {
                        </div>
                        <div>
                            {u.followed
-                               ? <button onClick={() => {
+                               ? <button disabled={props.folowingIsProgress.some(id => id === u.id)} onClick={() => {
+                                   props.toogleFolowingIsProgress(true, u.id)
                                    usersAPI.deleteUnffolow(u.id)
                                        .then(data => {
                                            if (data.resultCode === 0) {
                                                props.unfollow(u.id)
                                            }
+                                           props.toogleFolowingIsProgress(false, u.id)
                                        })
                                }}>Unfollow</button>
-                               : <button onClick={() => {
+                               : <button disabled={props.folowingIsProgress.some(id => id === u.id)} onClick={() => {
+                                   props.toogleFolowingIsProgress(true, u.id)
                                    usersAPI.getFollow(u.id)
                                        .then(data => {
                                            if (data.resultCode === 0) {
                                                props.follow(u.id)
                                            }
+                                           props.toogleFolowingIsProgress(false, u.id)
                                        })
                                }}>Follow</button>}
                        </div>
