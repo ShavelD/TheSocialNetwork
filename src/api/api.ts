@@ -41,7 +41,7 @@ export const usersAPI = {
 }
 
 export const AuthMe =  {
-    getAuthMe() {
+    me() {
         return instance.get(`auth/me`
         ).then(response => {
                 return response.data
