@@ -1,6 +1,9 @@
 import React from "react";
 import {ActionsTypes} from "./types";
 import {ProfileType, PropsType} from "../components/Profile/Profile";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+import {toogleFolowingIsProgress, unfollowSuccess} from "./users-reducer";
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -99,15 +102,24 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 }
 
 export const AddPostCreator = (newPostText: string): AddPostActionType => ({
-    type: ADD_POST, newPostText: newPostText} as const
+        type: ADD_POST, newPostText: newPostText
+    } as const
 )
 
 export const updateNewPostTextCreator = (text: string): UpdateNewPostTextActionType => ({
-    type: UPDATE_NEW_POST_TEXT, newText: text} as const
+        type: UPDATE_NEW_POST_TEXT, newText: text
+    } as const
 )
 
 export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({
-    type: SET_USER_PROFILE, profile } as const
+        type: SET_USER_PROFILE, profile
+    } as const
 )
+
+export const getUsersProfile = (userId: string) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId).then(response => {
+        dispatch(setUserProfile(response.data))
+    })
+}
 
 export default profileReducer;
