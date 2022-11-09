@@ -13,7 +13,6 @@ const rootReducer = combineReducers({
     sidebar: sidebarReducer,
     usersPage: usersReducer,
     auth: authReducer
-
 })
 
 type RootReducerType = typeof rootReducer

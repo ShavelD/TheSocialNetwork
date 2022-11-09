@@ -1,7 +1,6 @@
 import React from "react";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-import {Redirect} from "react-router-dom";
 
 export type ContactsType = {
     facebook: string
@@ -27,7 +26,6 @@ export type ProfileType = {
     contacts: ContactsType
     photos: PhotosType
 }
-
 
 export type PropsType = {
     profile: ProfileType
