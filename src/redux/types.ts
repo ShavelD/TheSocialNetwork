@@ -7,9 +7,9 @@ import {
 } from "./users-reducer";
 import {
     AddPostActionType,
-    SetUserProfileActionType,
+    SetUserProfileActionType, SetUserStatusType,
     UpdateNewMessageBodyActionType,
-    UpdateNewPostTextActionType
+    UpdateNewPostTextActionType, updateUserStatusType
 } from "./profile-reducer";
 import {setUserDataActionType} from "./auth-reducer";
 
@@ -26,3 +26,5 @@ export type ActionsTypes = AddPostActionType
     | SetUserProfileActionType
     | setUserDataActionType
     | setFolowingIsProgressActionType
+    | SetUserStatusType
+    | updateUserStatusType

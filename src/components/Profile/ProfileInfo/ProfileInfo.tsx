@@ -1,8 +1,14 @@
 import React from "react";
 import s from './ProfileInfo.module.css'
 import Preloader from "../../common/Preloader/Preloader";
-import {PropsType} from "../Profile";
-import ProfileStatus from "./ProfileStatus";
+import {ProfileStatus} from "./ProfileStatus";
+import {ProfileType} from "../Profile";
+
+type PropsType = {
+    profile: ProfileType
+    status: string
+    updateUserStatus: (status: string) => void
+}
 
 export function ProfileInfo(props: PropsType) {
     if (!props.profile) {
@@ -18,7 +24,7 @@ export function ProfileInfo(props: PropsType) {
                 <div><img alt='profile-img' src={props.profile.photos.large}/></div>
                ava + description
             </div>
-            <ProfileStatus status={'Hello my friends'} />
+            <ProfileStatus  status={props.status} updateUserStatus={props.updateUserStatus}/>
         </div>
     )
 }

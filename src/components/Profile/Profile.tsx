@@ -29,13 +29,15 @@ export type ProfileType = {
 
 export type PropsType = {
     profile: ProfileType
+    status: string
+    updateUserStatus: (status: string) => void
 }
 
 export function Profile(props: PropsType) {
 
     return (
         <div>
-            <ProfileInfo profile={props.profile}/>
+            <ProfileInfo profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus}/>
             <MyPostsContainer/>
         </div>
     )
