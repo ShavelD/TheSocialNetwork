@@ -11,8 +11,8 @@ export const ProfileStatus = (props: PropsType) => {
     const onEditMode = () => setEditMode(true)
 
     const offEditMode = () => {
-        setEditMode(false)
         props.updateUserStatus(title)
+        setEditMode(false)
     }
 
     useEffect(() => {
