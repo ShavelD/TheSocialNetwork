@@ -4,9 +4,12 @@ import {UsersType} from "../components/Users/Users";
 import {usersAPI} from "../api/api";
 import {Dispatch} from "redux";
 
+
 export type SendMessageActionType = {
-    type: 'SEND-MESSAGE'
+    type: 'SEND-MESSAGE',
+    newMessageBody: string
 }
+
 
 export type FollowActionType = {
     type: 'FOLLOW',

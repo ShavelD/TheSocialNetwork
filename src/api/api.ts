@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {setUserProfile} from "../redux/profile-reducer";
 import {useDispatch} from "react-redux";
 
@@ -56,4 +56,21 @@ export const AuthMe =  {
     me() {
         return instance.get(`auth/me`)
     },
+    login(data: LoginParamsType){
+        return instance.post<LoginParamsType, AxiosResponse<ResponseType<{userId: number}>>>('/auth/login', data)
+    }
+}
+
+export type ResponseType<D = {}> = {
+    resultCode: number,
+    message: Array<string>,
+    data: D
+}
+
+
+export type LoginParamsType = {
+    email: string,
+    password: string,
+    rememberMe: boolean,
+    captcha?: string
 }

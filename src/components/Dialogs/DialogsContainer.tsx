@@ -8,7 +8,7 @@ import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type MapDispatchPropsType = {
     updateNewMessageBody: (body: string) => void
-    sendMessage: () =>  void
+    sendMessage: (newMessageBody: any) =>  void
 }
 
 let mapStateToProps = (state: AppStateType) => {
@@ -22,8 +22,8 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
         updateNewMessageBody: (body: string) => {
             dispatch(updateNewMessageBodyCreator(body))
         },
-        sendMessage: () => {
-            dispatch(SendMessageCreator())
+        sendMessage: (newMessageBody: string) => {
+            dispatch(SendMessageCreator(newMessageBody))
         }
     }
 }
