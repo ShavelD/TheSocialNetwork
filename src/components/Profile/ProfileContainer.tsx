@@ -60,14 +60,5 @@ export default compose<React.ComponentType>(
     withRouter
 )(ProfileContainer)
 
-// let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-
-
-
-//
-//
-// let withUrlDataContainerComponent = withRouter<any,any>(AuthRedirectComponent)
-//
-// export default connect(mapStateToProps, {getUsersProfile})(withUrlDataContainerComponent);
 
 
