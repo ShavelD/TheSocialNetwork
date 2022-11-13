@@ -1,6 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {setUserProfile} from "../redux/profile-reducer";
-import {useDispatch} from "react-redux";
+
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -61,16 +60,16 @@ export const AuthMe =  {
     }
 }
 
-export type ResponseType<D = {}> = {
-    resultCode: number,
-    message: Array<string>,
+
+type ResponseType<D = {}> = {
+    resultCode: number
+    messages: Array<string>
     data: D
 }
 
-
 export type LoginParamsType = {
-    email: string,
-    password: string,
-    rememberMe: boolean,
+    email: string
+    password: string
+    rememberMe: boolean
     captcha?: string
 }

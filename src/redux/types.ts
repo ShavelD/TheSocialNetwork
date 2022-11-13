@@ -11,7 +11,7 @@ import {
     UpdateNewMessageBodyActionType,
     UpdateNewPostTextActionType, updateUserStatusType
 } from "./profile-reducer";
-import {setUserDataActionType} from "./auth-reducer";
+import {setIsLoggedActionType, setUserDataActionType} from "./auth-reducer";
 
 export type ActionsTypes = AddPostActionType
     | UpdateNewPostTextActionType
@@ -24,7 +24,8 @@ export type ActionsTypes = AddPostActionType
     | setTotalCountActionType
     | setIsFetchingActionType
     | SetUserProfileActionType
-    | setUserDataActionType
     | setFolowingIsProgressActionType
     | SetUserStatusType
     | updateUserStatusType
+    | setUserDataActionType
+    | setIsLoggedActionType
