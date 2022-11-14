@@ -2,16 +2,16 @@ import React from "react";
 import {ActionsTypes} from "./types";
 import {AnyAction, Dispatch} from "redux";
 import {AuthMe, LoginParamsType} from "../api/api";
+import {AppStateType} from "./redux-store";
+import {ThunkAction} from "redux-thunk";
 
 export type  setUserDataActionType = ReturnType<typeof setAuthUserData>
 
 export type setIsLoggedActionType = ReturnType<typeof setIsLoggedInAC>
 
-export type authDataPropsType = {
-    id: number,
-    email: string,
-    login: string
-}
+export type AuthActionsType =  setUserDataActionType | setIsLoggedActionType
+
+
 
 const initialState: InitialStateType = {
     id: 2,
@@ -29,7 +29,7 @@ export type InitialStateType = {
     isLoggedIn: boolean
 }
 
-const authReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
+const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
     switch (action.type) {
         case "SET-USER-DATA":
             return {
@@ -61,7 +61,7 @@ export const getAuthUserData = () => (dispatch: Dispatch) => {
     })
 }
 
-export const setIsLoggedInTC = (data: LoginParamsType) => (dispatch: Dispatch<AnyAction>) => {
+export const setIsLoggedInTC = (data: LoginParamsType): ThunkType => (dispatch) => {
     debugger
     AuthMe.login(data)
         .then((res)=>{
@@ -70,5 +70,8 @@ export const setIsLoggedInTC = (data: LoginParamsType) => (dispatch: Dispatch<An
             }
         })
 }
+
+export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
+
 
 export default authReducer;

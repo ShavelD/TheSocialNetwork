@@ -1,10 +1,10 @@
-import {useDispatch} from "react-redux";
 import {useFormik} from "formik";
 import {setIsLoggedInTC} from "../../redux/auth-reducer";
+import {useAppDispatch} from "../../redux/redux-store";
 
 
 export const LoginForm = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch();
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -13,7 +13,7 @@ export const LoginForm = () => {
         },
         onSubmit: values => {
             dispatch(setIsLoggedInTC(values))
-            alert(JSON.stringify(values))
+            // alert(JSON.stringify(values))
         }
     })
     return (
