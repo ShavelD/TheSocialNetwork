@@ -3,7 +3,6 @@ import {ActionsTypes} from "./types";
 import {ProfileType} from "../components/Profile/Profile";
 import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../api/api";
-import {setAuthUserData} from "./auth-reducer";
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -37,7 +36,6 @@ export type PostsType = {
 
 export type ProfilePageType = {
     posts: PostsType[]
-    newPostText: string
     profile: ProfileType
     status: string
 }
@@ -53,7 +51,7 @@ let initialState = {
         {id: 1, message: "Hi, how are you?", likesCount: 6},
         {id: 2, message: "It's my first post", likesCount: 10}
     ],
-    newPostText: '',
+    // newPostText: '',
     profile: {
         aboutMe: '',
         contacts: {
@@ -81,16 +79,8 @@ let initialState = {
 const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case ADD_POST:
-            let newPost: PostsType = {
-                id: 5,
-                message: state.newPostText,
-                likesCount: 10
-            }
-            return {
-                ...state,
-                posts: [...state.posts, newPost],
-                newPostText: ''
-            }
+            let message = action.newPostText
+            return {...state, posts: [{id: 5, message: message, likesCount: 10}, ...state.posts,]}
         case UPDATE_NEW_POST_TEXT:
             return {
                 ...state,
@@ -106,7 +96,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
                 ...state,
                 status: action.status
             }
-            case UPDATE_USER_STATUS:
+        case UPDATE_USER_STATUS:
             return {
                 ...state,
                 status: action.status
@@ -118,7 +108,7 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 }
 
 export const AddPostCreator = (newPostText: string): AddPostActionType => ({
-        type: ADD_POST, newPostText: newPostText
+        type: ADD_POST, newPostText
     } as const
 )
 

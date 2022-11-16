@@ -1,9 +1,10 @@
-import React, {ChangeEvent} from 'react'
+import React from 'react'
 import s from './Dialogs.module.css'
 import DialogItem from "./DialogItem/DialogItem";
 import Message from "./Message/Message";
 import {DialogsPageType} from "../../redux/dialogs-reducer";
-import {Field, reduxForm} from "redux-form";
+import {useFormik} from "formik";
+
 
 
 type DialogsPropsType = {
@@ -18,20 +19,7 @@ export function Dialogs(props: DialogsPropsType) {
 
     let dialogsElements = state.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
     let messagesElements = state.messages.map(m => <Message key={m.id} message={m.message} id={m.id}/>)
-    // let newMessageBody = state.newMessageBody;
-    //
-    // let onSendMessageClick = () => {
-    //     props.sendMessage()
-    // }
-    //
-    // let onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    //     let body = e.currentTarget.value
-    //     props.updateNewMessageBody(body)
-    // }
 
-    // let onNewMessageChange = (values: (values: string) => void) => {
-    //     alert(values.newMessageBody)
-    // }
 
     return (
         <div className={s.dialogs}>
@@ -42,32 +30,38 @@ export function Dialogs(props: DialogsPropsType) {
                 <div>{messagesElements}</div>
                 <div>
                 </div>
-                {/*<AddMessageReduxForm onSubmit={onNewMessageChange} />*/}
-                {/*<div>*/}
-                {/*    <textarea value={newMessageBody}*/}
-                {/*              onChange={onNewMessageChange}*/}
-                {/*              placeholder="Enter your message">*/}
-                {/*    </textarea>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*    <button onClick={onSendMessageClick}>Send</button>*/}
-                {/*</div>*/}
+                <AddMessageForm sendMessage={props.sendMessage}/>
             </div>
         </div>
     )
 }
-
-const AddMessageForm = (props: any) => {
-    return (
-        <form onSubmit={props.handleSubmit}>
-            <div>
-                <Field component={"textarea"} name={"newMessageBody"} placeholder={"Enter your message"}/>
-            </div>
-            <div>
-                <button>Send</button>
-            </div>
-        </form>
-    )
+type AddMessageTypeForm = {
+    sendMessage: (newMessageBody: string) => void
 }
 
-const AddMessageReduxForm = reduxForm({form: "dialogAddMessageForm"})(AddMessageForm)
+const AddMessageForm = (props: AddMessageTypeForm) => {
+    const formik = useFormik({
+        initialValues: {
+            newMessageBody: ''
+        },
+
+        onSubmit: values => {
+            alert(JSON.stringify(values));
+            props.sendMessage(values.newMessageBody)
+        },
+    });
+    return (
+        <form onSubmit={formik.handleSubmit}>
+            <div style={{display: "block"}}>
+            <label style={{color: "gold"}} htmlFor="textarea">Write a message</label>
+            <textarea
+                name="newMessageBody"
+                onChange={formik.handleChange}
+                value={formik.values.newMessageBody}
+                onBlur={formik.handleBlur}
+            />
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    );
+};
