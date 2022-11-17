@@ -14,19 +14,17 @@ export type AuthActionsType =  setUserDataActionType | setIsLoggedActionType
 
 
 const initialState: InitialStateType = {
-    id: 2,
-    email: '',
-    login: '',
-    isAuth: false,
-    isLoggedIn: false
+    id: null,
+    email: null,
+    login: null,
+    isAuth: false
 }
 
 export type InitialStateType = {
-    id: number,
-    email: string,
-    login: string,
-    isAuth: boolean,
-    isLoggedIn: boolean
+    id: null | number,
+    email: null | string,
+    login: null | string,
+    isAuth: boolean
 }
 
 const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
@@ -35,18 +33,17 @@ const authReducer = (state: InitialStateType = initialState, action: AuthActions
             return {
                 ...state,
                 ...action.data,
-                isAuth: true
             }
         case "IS-LOGGED-IN":
             return {
                 ...state,
-                isLoggedIn: action.isLoggedIn
+                isAuth: action.isAuth
             }
         default:
             return state
     }
 }
-export const setIsLoggedInAC = (isLoggedIn:boolean) => ({type:'IS-LOGGED-IN', isLoggedIn} as const)
+export const setIsLoggedInAC = (isAuth:boolean) => ({type:'IS-LOGGED-IN', isAuth} as const)
 
 export const setAuthUserData = (id: number, email: string, login: string) => (
     {type: 'SET-USER-DATA', data: {id, email, login}} as const)
@@ -57,6 +54,7 @@ export const getAuthUserData = () => (dispatch: Dispatch) => {
         if (response.data.resultCode === 0) {
             let {id, email, login} = response.data.data
             dispatch(setAuthUserData(id, email, login))
+            dispatch(setIsLoggedInAC(true))
         }
     })
 }
@@ -70,6 +68,16 @@ export const setIsLoggedInTC = (data: LoginParamsType): ThunkType => (dispatch) 
             }
         })
 }
+
+// export const setIsLoggedOutTC = (): ThunkType => (dispatch) => {
+//     debugger
+//     AuthMe.logout()
+//         .then((res)=>{
+//             if (res.data.resultCode === 0){
+//                 dispatch(setAuthUserData(null, null, null))
+//             }
+//         })
+// }
 
 export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 

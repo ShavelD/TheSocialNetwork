@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 
 export type PropsType = {
     isAuth: boolean,
-    login: string
+    login: null | string
 }
 
 export function Header(props: PropsType) {
@@ -13,8 +13,11 @@ export function Header(props: PropsType) {
             <img
                 src='http://www.dsource.in/sites/default/files/case-study/logo-70-years-indias-independence/download-logo/images/Ashley-logo.png'/>
             <div className={s.loginBlock}>
-                {props.isAuth ? props.login :
-                <NavLink to={'/login'}>Login</NavLink>}
+                {
+                    props.isAuth
+                        ?<div>{props.login}</div>
+                        : <NavLink to={'/login'}>Login</NavLink>
+                }
             </div>
         </header>
     )

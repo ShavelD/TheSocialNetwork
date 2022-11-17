@@ -39,11 +39,12 @@ export const LoginForm = () => {
         },
         validate,
         onSubmit: values => {
-            dispatch(setIsLoggedInTC(values))
+            debugger
             // alert(JSON.stringify(values))
+            dispatch(setIsLoggedInTC(values))
+            formik.resetForm()
         }
     })
-
 
 
     return (
@@ -53,9 +54,11 @@ export const LoginForm = () => {
                     <label htmlFor="First name">Email</label>
                     <input
                         placeholder={'email'}
-                        name="email"
-                        onChange={formik.handleChange}
-                        value={formik.values.email}
+                        // name="email"
+                        // onChange={formik.handleChange}
+                        // onBlur={formik.handleBlur}
+                        // value={formik.values.email}
+                        {...formik.getFieldProps('email')}
                     />
                     {(formik.touched.email && formik.errors.email) ?
                         <div style={{color: 'red'}}>{formik.errors.email}</div> : ''}
@@ -64,9 +67,7 @@ export const LoginForm = () => {
                     <label htmlFor="First name">Password</label>
                     <input
                         placeholder={'password'}
-                        name="password"
-                        onChange={formik.handleChange}
-                        value={formik.values.password}
+                        {...formik.getFieldProps('password')}
                     />
                     {(formik.touched.password && formik.errors.password) ?
                         <div style={{color: 'red'}}>{formik.errors.password}</div> : ''}
@@ -74,12 +75,15 @@ export const LoginForm = () => {
                 <div>
                     <input
                         type={"checkbox"}
-                        name="rememberMe"
-                        onChange={formik.handleChange}
+                        // name="rememberMe"
+                        // onChange={formik.handleChange}
+                        // checked={formik.values.rememberMe}
+                        // onBlur={formik.handleBlur}
+                        {...formik.getFieldProps('rememberMe')}
                     />
                     {(formik.touched.rememberMe && formik.errors.rememberMe) ?
                         formik.errors.rememberMe : ''}
-                    remember me
+                    Remember Me
                 </div>
                 <div>
                     <button type="submit">Login
