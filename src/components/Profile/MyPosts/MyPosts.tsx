@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './MyPosts.module.css';
 import {Posts} from "./Post/Posts";
 import {PostsType} from "../../../redux/profile-reducer";
@@ -8,7 +8,6 @@ import {useFormik} from "formik";
 export type MyPostsPropsType = {
     posts: PostsType[]
     addPost: (newPostText: string) => void
-    updateNewPostText: (newText: string) => void
 }
 
 export function MyPosts(props: MyPostsPropsType) {
@@ -17,33 +16,11 @@ export function MyPosts(props: MyPostsPropsType) {
                id={p.id}
                message={p.message}
                likesCount={p.likesCount}/>)
-    // let newPostElement = React.createRef<HTMLTextAreaElement>();
-
-    // let onAddPost = () => {
-    //     props.addPost();
-    // }
-    //
-    // let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    //     if (newPostElement.current) {
-    //         let text = newPostElement.current.value;
-    //         props.updateNewPostText(text)
-    //     }
-    // }
-
     return (
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
                 <AddPostsForm addPost={props.addPost}/>
-                {/*<div>*/}
-                {/*    <textarea onChange={onPostChange}*/}
-                {/*              ref={newPostElement}*/}
-                {/*              value={props.newPostText}*/}
-                {/*    />*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*    <button onClick={onAddPost}>Add post</button>*/}
-                {/*</div>*/}
             </div>
             <div className={s.posts}>
                 {postsElements}
@@ -56,12 +33,29 @@ type AddPostTypeForm = {
     addPost: (newPostText: string) => void
 }
 
+type errorsType = {
+    newPostText?: string
+}
+
+const validate = (values: { newPostText: string | any[]; }) => {
+    const errors: errorsType = {};
+    if (!values.newPostText) {
+        errors.newPostText = 'Required'
+    } else if (values.newPostText.length < 10) {
+        errors.newPostText = 'Must be at least 10 characters.'
+    }else if (values.newPostText.length > 40) {
+        errors.newPostText = 'Must be 40 characters or less'
+    }
+    return errors
+}
+
+
 const AddPostsForm = (props: AddPostTypeForm) => {
     const formik = useFormik({
         initialValues: {
             newPostText: ''
         },
-
+        validate,
         onSubmit: values => {
             alert(JSON.stringify(values));
             props.addPost(values.newPostText)
@@ -77,9 +71,14 @@ const AddPostsForm = (props: AddPostTypeForm) => {
                     value={formik.values.newPostText}
                     onBlur={formik.handleBlur}
                 />
+                {(formik.touched.newPostText && formik.errors.newPostText) ?
+                    <div style={{color: 'red'}}>{formik.errors.newPostText}</div> : ''}
             </div>
-            <button type="submit">Submit</button>
+            <button  type="submit">Submit</button>
+            <button type="reset"  onClick={ e => formik.resetForm()}> Reset</button>
         </form>
     );
 };
+
+
 

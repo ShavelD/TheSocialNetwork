@@ -9,11 +9,6 @@ export type AddPostActionType = {
     newPostText: string
 }
 
-export type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newText: string
-}
-
 export type UpdateNewMessageBodyActionType = {
     type: 'UPDATE-NEW-MESSAGE-BODY'
     body: string
@@ -41,7 +36,6 @@ export type ProfilePageType = {
 }
 
 export const ADD_POST = 'ADD-POST';
-export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 export const SET_USER_PROFILE = 'SET-USER-PROFILE';
 export const SET_USER_STATUS = 'SET-USER-STATUS';
 export const UPDATE_USER_STATUS = 'UPDATE-USER-STATUS';
@@ -49,9 +43,9 @@ export const UPDATE_USER_STATUS = 'UPDATE-USER-STATUS';
 let initialState = {
     posts: [
         {id: 1, message: "Hi, how are you?", likesCount: 6},
-        {id: 2, message: "It's my first post", likesCount: 10}
+        {id: 2, message: "It's my first post", likesCount: 10},
+        {id: 3, message: "It's my live", likesCount: 7}
     ],
-    // newPostText: '',
     profile: {
         aboutMe: '',
         contacts: {
@@ -79,12 +73,9 @@ let initialState = {
 const profileReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case ADD_POST:
-            let message = action.newPostText
-            return {...state, posts: [{id: 5, message: message, likesCount: 10}, ...state.posts,]}
-        case UPDATE_NEW_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
+            return {...state,
+                posts: [{id: 5, message: action.newPostText, likesCount: 10},
+                    ...state.posts,]
             }
         case SET_USER_PROFILE:
             return {
@@ -109,11 +100,6 @@ const profileReducer = (state: ProfilePageType = initialState, action: ActionsTy
 
 export const AddPostCreator = (newPostText: string): AddPostActionType => ({
         type: ADD_POST, newPostText
-    } as const
-)
-
-export const updateNewPostTextCreator = (text: string): UpdateNewPostTextActionType => ({
-        type: UPDATE_NEW_POST_TEXT, newText: text
     } as const
 )
 

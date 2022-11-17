@@ -8,13 +8,11 @@ import {
 import {
     AddPostActionType,
     SetUserProfileActionType, SetUserStatusType,
-    UpdateNewMessageBodyActionType,
-    UpdateNewPostTextActionType, updateUserStatusType
+    UpdateNewMessageBodyActionType, updateUserStatusType
 } from "./profile-reducer";
 import {setIsLoggedActionType, setUserDataActionType} from "./auth-reducer";
 
 export type ActionsTypes = AddPostActionType
-    | UpdateNewPostTextActionType
     | UpdateNewMessageBodyActionType
     | SendMessageActionType
     | FollowActionType

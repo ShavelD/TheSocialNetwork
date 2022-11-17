@@ -1,9 +1,7 @@
 import React from "react";
 import {ActionsTypes} from "./types";
 import {SendMessageActionType} from "./users-reducer";
-import {UpdateNewMessageBodyActionType} from "./profile-reducer";
 
-export const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
 export const SEND_MESSAGE = 'SEND-MESSAGE'
 
 export type DialogsType = {
@@ -42,11 +40,6 @@ export type InitialStateType = typeof initialState
 
 const dialogsReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_BODY:
-            return {
-                ...state,
-                newMessageBody: action.body
-            }
         case SEND_MESSAGE:
             let message = action.newMessageBody
             return {
@@ -58,9 +51,6 @@ const dialogsReducer = (state: InitialStateType = initialState, action: ActionsT
     }
 }
 
-export const updateNewMessageBodyCreator = (body: string): UpdateNewMessageBodyActionType => ({
-    type: UPDATE_NEW_MESSAGE_BODY, body: body
-})
 
 export const SendMessageCreator = (newMessageBody: string): SendMessageActionType => ({
     type: SEND_MESSAGE, newMessageBody
