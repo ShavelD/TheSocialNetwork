@@ -55,8 +55,8 @@ export const AuthMe =  {
     me() {
         return instance.get(`auth/me`)
     },
-    login(data: LoginParamsType){
-        return instance.post<LoginParamsType, AxiosResponse<ResponseType<{userId: number}>>>('/auth/login', data)
+    login(data: LoginParamsType) {
+        return instance.post<LoginParamsType,AxiosResponse<ResponseType<{userId: string}>>>('/auth/login', data);
     },
     logout() {
         return instance.delete<AxiosResponse<ResponseType<{ userId: number }>>>('/auth/login')
@@ -64,10 +64,16 @@ export const AuthMe =  {
 }
 
 
-type ResponseType<D = {}> = {
+export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
     data: D
+}
+
+export enum Result_Code {
+    OK = 0,
+    ERROR = 1,
+    CAPCHA = 10,
 }
 
 export type LoginParamsType = {

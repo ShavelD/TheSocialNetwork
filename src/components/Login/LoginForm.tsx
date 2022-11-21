@@ -1,7 +1,8 @@
 import {useFormik} from "formik";
-import {setIsLoggedInTC} from "../../redux/auth-reducer";
 import {useAppDispatch} from "../../redux/redux-store";
 import React from "react";
+import {LoginParamsType} from "../../api/api";
+import {loginTC} from "../../redux/authMe-reducer";
 
 type errorsType = {
     email?: string,
@@ -9,7 +10,7 @@ type errorsType = {
     rememberMe?: boolean
 }
 
-const validate = (values: {email: string,password: string | any[],rememberMe: boolean }) => {
+const validate = (values: LoginParamsType) => {
     const errors: errorsType = {};
     if (!values.email) {
         errors.email = 'Required'
@@ -29,6 +30,7 @@ const validate = (values: {email: string,password: string | any[],rememberMe: bo
     return errors
 }
 
+
 export const LoginForm = () => {
     const dispatch = useAppDispatch();
     const formik = useFormik({
@@ -38,14 +40,12 @@ export const LoginForm = () => {
             rememberMe: false
         },
         validate,
-        onSubmit: values => {
-            debugger
-            // alert(JSON.stringify(values))
-            dispatch(setIsLoggedInTC(values))
+        onSubmit: (values: LoginParamsType) => {
+            alert(JSON.stringify(values))
+            dispatch(loginTC(values))
             formik.resetForm()
         }
     })
-
 
     return (
         <form onSubmit={formik.handleSubmit}>
@@ -54,10 +54,6 @@ export const LoginForm = () => {
                     <label htmlFor="First name">Email</label>
                     <input
                         placeholder={'email'}
-                        // name="email"
-                        // onChange={formik.handleChange}
-                        // onBlur={formik.handleBlur}
-                        // value={formik.values.email}
                         {...formik.getFieldProps('email')}
                     />
                     {(formik.touched.email && formik.errors.email) ?
@@ -67,6 +63,7 @@ export const LoginForm = () => {
                     <label htmlFor="First name">Password</label>
                     <input
                         placeholder={'password'}
+                        type={'password'}
                         {...formik.getFieldProps('password')}
                     />
                     {(formik.touched.password && formik.errors.password) ?
@@ -75,19 +72,15 @@ export const LoginForm = () => {
                 <div>
                     <input
                         type={"checkbox"}
-                        // name="rememberMe"
-                        // onChange={formik.handleChange}
-                        // checked={formik.values.rememberMe}
-                        // onBlur={formik.handleBlur}
                         {...formik.getFieldProps('rememberMe')}
+                        checked={formik.values.rememberMe}
                     />
                     {(formik.touched.rememberMe && formik.errors.rememberMe) ?
                         formik.errors.rememberMe : ''}
                     Remember Me
                 </div>
                 <div>
-                    <button type="submit">Login
-                    </button>
+                    <button type="submit">Login</button>
                 </div>
             </div>
         </form>

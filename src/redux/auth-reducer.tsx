@@ -1,15 +1,14 @@
 import React from "react";
-import {ActionsTypes} from "./types";
-import {AnyAction, Dispatch} from "redux";
-import {AuthMe, LoginParamsType} from "../api/api";
-import {AppStateType} from "./redux-store";
-import {ThunkAction} from "redux-thunk";
+import { Dispatch} from "redux";
+import {AuthMe} from "../api/api";
+import {setIsLoggedInAC} from "./authMe-reducer";
 
 export type  setUserDataActionType = ReturnType<typeof setAuthUserData>
 
-export type setIsLoggedActionType = ReturnType<typeof setIsLoggedInAC>
+// export type setIsLoggedActionType = ReturnType<typeof setIsLoggedInAC>
 
-export type AuthActionsType =  setUserDataActionType | setIsLoggedActionType
+export type AuthActionsType =  setUserDataActionType
+    // | setIsLoggedActionType
 
 
 
@@ -17,14 +16,15 @@ const initialState: InitialStateType = {
     id: null,
     email: null,
     login: null,
-    isAuth: false
+    isLoggedIn: false
 }
+// export type InitialStateType = typeof initialState
 
 export type InitialStateType = {
     id: null | number,
     email: null | string,
     login: null | string,
-    isAuth: boolean
+    isLoggedIn: boolean
 }
 
 const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
@@ -33,17 +33,18 @@ const authReducer = (state: InitialStateType = initialState, action: AuthActions
             return {
                 ...state,
                 ...action.data,
+                isLoggedIn: true
             }
-        case "IS-LOGGED-IN":
-            return {
-                ...state,
-                isAuth: action.isAuth
-            }
+        // case "IS-LOGGED-IN":
+        //     return {
+        //         ...state,
+        //         isLoggedIn: action.value
+        //     }
         default:
             return state
     }
 }
-export const setIsLoggedInAC = (isAuth:boolean) => ({type:'IS-LOGGED-IN', isAuth} as const)
+// export const setIsLoggedInAC = (value :boolean) => ({type:'IS-LOGGED-IN', value} as const)
 
 export const setAuthUserData = (id: number, email: string, login: string) => (
     {type: 'SET-USER-DATA', data: {id, email, login}} as const)
@@ -59,27 +60,17 @@ export const getAuthUserData = () => (dispatch: Dispatch) => {
     })
 }
 
-export const setIsLoggedInTC = (data: LoginParamsType): ThunkType => (dispatch) => {
-    debugger
-    AuthMe.login(data)
-        .then((res)=>{
-            if (res.data.resultCode === 0){
-                dispatch(setIsLoggedInAC(true))
-            }
-        })
-}
-
-// export const setIsLoggedOutTC = (): ThunkType => (dispatch) => {
-//     debugger
-//     AuthMe.logout()
+// export const setIsLoggedInTC = (data: LoginParamsType): ThunkType => (dispatch) => {
+//     AuthMe.login(data)
 //         .then((res)=>{
 //             if (res.data.resultCode === 0){
-//                 dispatch(setAuthUserData(null, null, null))
+//                 dispatch(setIsLoggedInAC(true))
 //             }
 //         })
 // }
-
-export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
+//
+//
+// export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
 
 export default authReducer;

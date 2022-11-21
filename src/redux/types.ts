@@ -10,7 +10,8 @@ import {
     SetUserProfileActionType, SetUserStatusType,
     UpdateNewMessageBodyActionType, updateUserStatusType
 } from "./profile-reducer";
-import {setIsLoggedActionType, setUserDataActionType} from "./auth-reducer";
+import {setUserDataActionType} from "./auth-reducer";
+import {setIsLoggedActionType} from "./authMe-reducer";
 
 export type ActionsTypes = AddPostActionType
     | UpdateNewMessageBodyActionType

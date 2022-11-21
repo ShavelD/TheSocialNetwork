@@ -3,9 +3,9 @@ import {Profile, ProfileType} from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {getUsersProfile, getUserStatus, updateUserStatus} from "../../redux/profile-reducer";
-import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
 type PathUserIdType = {
     userId: string
@@ -59,6 +59,67 @@ export default compose<React.ComponentType>(
     withAuthRedirect,
     withRouter
 )(ProfileContainer)
-
+//
+// import {connect} from 'react-redux'
+// import React, {ComponentType} from 'react'
+// import {Profile} from './Profile'
+// import {Params, useParams} from 'react-router-dom'
+// import {compose} from 'redux'
+// import {AppStateType} from "../../redux/redux-store";
+// import {getUsersProfile, getUserStatus, updateUserStatus} from "../../redux/profile-reducer";
+//
+// export type mapStateToPropsType = ReturnType<typeof mapStateToProps>
+//
+// export type mapDispatchToPropsType = {
+//     addPost: () => void
+//     updateNewPostText: (text: string) => void
+//     getUserProfile: (profile: number) => void
+//     updateStatus: (newStatus: string) => void
+//     getStatus: (userId: number) => void
+// }
+//
+// export type WithUrlDataContainerComponentType = mapStateToPropsType & mapDispatchToPropsType
+//
+// type ProfileRequestContainerType = WithUrlDataContainerComponentType & {
+//     params: Params
+// }
+//
+// class ProfileContainer extends React.Component<ProfileRequestContainerType> {
+//
+//     componentDidMount() {
+//         let {userId} = this.props.params
+//         userId && this.props.getUserProfile(+userId)
+//         userId && this.props.getStatus(+userId)
+//     }
+//
+//     render() {
+//         return (
+//             <Profile {...this.props}
+//                      profile={this.props.profile}
+//                      status={this.props.status}
+//                      updateUserStatus={this.props.updateStatus}
+//             />
+//         )
+//     }
+// }
+//
+// const mapStateToProps = (state: AppStateType) => {
+//     return ({
+//         posts: state.profilePage.posts,
+//         profile: state.profilePage.profile,
+//         status: state.profilePage.status
+//     })
+// }
+//
+// function withRouter(Component: ComponentType<ProfileRequestContainerType>) {
+//     function ComponentWithParams(props: WithUrlDataContainerComponentType) {
+//         return <Component {...props} params={useParams()}/>
+//     }
+//     return ComponentWithParams
+// }
+//
+// export default compose<React.ComponentType>(
+//     connect(mapStateToProps, {getUsersProfile, getUserStatus, updateUserStatus}),
+//     withRouter)(ProfileContainer)
 
 

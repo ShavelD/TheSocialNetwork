@@ -1,28 +1,34 @@
-import React from 'react';
+import {Redirect} from "react-router-dom";
 import {LoginForm} from "./LoginForm";
-import {AppStateType} from "../../redux/redux-store";
 import {connect} from "react-redux";
+import React from "react";
+import {AppStateType} from "../../redux/redux-store";
+
 
 type LoginPropsType = MapStatePropsType
 
 type MapStatePropsType = {
-    isAuth:boolean
+    isLoggedIn: boolean
 }
-
 
 const Login = (props: LoginPropsType) => {
 
-    return (
-        <div>
-            <h2>LOGIN</h2>
-            <LoginForm/>
-        </div>
-    );
-};
+    if (props.isLoggedIn){
+        return <Redirect to={'/profile'}/>
+    }
 
-const mapStateToProps = (state: AppStateType):MapStatePropsType =>{
+    return(
+        <div>
+            <h1>Login</h1>
+            <LoginForm />
+        </div>
+    )
+}
+
+const mapStateToProps = (state: AppStateType): MapStatePropsType =>{
     return{
-        isAuth:state.auth.isAuth
+        isLoggedIn:state.authMe.isLoggedIn
     }
 }
+
 export default connect(mapStateToProps)(Login)
