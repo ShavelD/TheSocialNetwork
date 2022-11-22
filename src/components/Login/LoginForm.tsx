@@ -2,7 +2,7 @@ import {useFormik} from "formik";
 import {useAppDispatch} from "../../redux/redux-store";
 import React from "react";
 import {LoginParamsType} from "../../api/api";
-import {loginTC} from "../../redux/authMe-reducer";
+import {loginTC} from "../../redux/auth-reducer";
 
 type errorsType = {
     email?: string,
@@ -21,11 +21,6 @@ const validate = (values: LoginParamsType) => {
         errors.password = 'Required'
     } else if (values.password.length < 5) {
         errors.password = 'Must be at least 5 characters.'
-    }
-    if (!values.rememberMe) {
-        errors.rememberMe = true
-    } else if (values.rememberMe) {
-        errors.rememberMe = false
     }
     return errors
 }

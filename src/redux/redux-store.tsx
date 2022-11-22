@@ -7,15 +7,13 @@ import authReducer from "./auth-reducer";
 import thunk, {ThunkDispatch} from "redux-thunk";
 import {ActionsTypes} from "./types";
 import {useDispatch} from "react-redux";
-import authMeReducer from "./authMe-reducer";
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
-    auth: authReducer,
-    authMe: authMeReducer
+    auth: authReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>

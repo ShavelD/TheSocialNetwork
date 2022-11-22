@@ -4,7 +4,8 @@ import {NavLink} from "react-router-dom";
 
 export type PropsType = {
     isLoggedIn: boolean,
-    login: null | string
+    login: null | string,
+    logOutTC: () => void
 }
 
 export function Header(props: PropsType) {
@@ -15,7 +16,7 @@ export function Header(props: PropsType) {
             <div className={s.loginBlock}>
                 {
                     props.isLoggedIn
-                        ?<div>{props.login}</div>
+                        ?<div>{props.login} $$<button onClick={props.logOutTC}>Log Out</button> </div>
                         : <NavLink to={'/login'}>Login</NavLink>
                 }
             </div>

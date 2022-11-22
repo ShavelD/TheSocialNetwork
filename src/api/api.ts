@@ -59,7 +59,7 @@ export const AuthMe =  {
         return instance.post<LoginParamsType,AxiosResponse<ResponseType<{userId: string}>>>('/auth/login', data);
     },
     logout() {
-        return instance.delete<AxiosResponse<ResponseType<{ userId: number }>>>('/auth/login')
+        return instance.delete<ResponseType>('/auth/login')
     }
 }
 

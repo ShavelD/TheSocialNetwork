@@ -27,7 +27,7 @@ const Login = (props: LoginPropsType) => {
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType =>{
     return{
-        isLoggedIn:state.authMe.isLoggedIn
+        isLoggedIn:state.auth.isLoggedIn
     }
 }
 

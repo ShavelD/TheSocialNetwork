@@ -9,7 +9,7 @@ import {Redirect} from "react-router-dom";
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
      return {
-         isLoggedIn: state.authMe.isLoggedIn
+         isLoggedIn: state.auth.isLoggedIn
      }
 }
 
