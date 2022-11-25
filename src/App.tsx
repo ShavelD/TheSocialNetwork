@@ -9,16 +9,16 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./redux/redux-store";
-import {CircularProgress, LinearProgress} from "@mui/material";
+import {CircularProgress} from "@mui/material";
 import {ErrorSnackbar} from "./components/ErrorSnackbar/ErrorSnackbar";
 import {getAuthUserData} from "./redux/auth-reducer";
-import {RequestStatusType} from "./redux/app-reducer";
 
 
 
 function App() {
 
     const dispatch = useDispatch()
+
     useEffect(() => {
         dispatch(getAuthUserData())
     },[])
