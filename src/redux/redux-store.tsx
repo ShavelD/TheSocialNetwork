@@ -6,18 +6,22 @@ import usersReducer from "./users-reducer";
 import authReducer from "./auth-reducer";
 import thunk, {ThunkDispatch} from "redux-thunk";
 import {ActionsTypes} from "./types";
-import {useDispatch} from "react-redux";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {appReducer} from "./app-reducer";
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     sidebar: sidebarReducer,
     usersPage: usersReducer,
+    app: appReducer,
     auth: authReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
 export const useAppDispatch = () => useDispatch<ThunkDispatch<AppStateType, unknown, ActionsTypes>>()
+export const useAppSelector: TypedUseSelectorHook<AppStateType> = useSelector
+
 
 
 let store = createStore(rootReducer, applyMiddleware(thunk))

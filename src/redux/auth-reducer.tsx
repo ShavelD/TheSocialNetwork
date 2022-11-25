@@ -1,18 +1,25 @@
 import React from "react";
-import { Dispatch} from "redux";
+import {Dispatch} from "redux";
 import {AuthMe, LoginParamsType, Result_Code} from "../api/api";
-import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "./app-reducer";
+import {
+    SetAppErrorActionType,
+    SetAppIsInitializeActionType,
+    setAppStatusAC,
+    SetAppStatusActionType,
+    setIsInitializedAC
+} from "./app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 
+export type  AuthActionsType = setUserDataActionType | setIsLoggedActionType
+
 export type  setUserDataActionType = ReturnType<typeof setAuthUserData>
-export type AuthActionsType =  setUserDataActionType | setIsLoggedActionType
-export type setIsLoggedActionType = ReturnType<typeof setIsLoggedInAC>
+export type  setIsLoggedActionType = ReturnType<typeof setIsLoggedInAC>
 
 const initialState: InitialStateType = {
     id: '',
     email: '',
     login: '',
-    isLoggedIn: false
+    isLoggedIn: false,
 }
 
 export type InitialStateType = {
@@ -22,7 +29,13 @@ export type InitialStateType = {
     isLoggedIn: boolean
 }
 
-type ActionsType = ReturnType<typeof setIsLoggedInAC> | SetAppStatusActionType | SetAppErrorActionType | setUserDataActionType
+type ActionsType =
+    ReturnType<typeof setIsLoggedInAC>
+    | SetAppStatusActionType
+    | SetAppErrorActionType
+    | setUserDataActionType
+    | SetAppIsInitializeActionType
+
 
 
 const authReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
@@ -40,20 +53,45 @@ const authReducer = (state: InitialStateType = initialState, action: AuthActions
 }
 
 export const setAuthUserData = (id: string, email: string, login: string) => (
-    {type: 'SET-USER-DATA', data: {id, email, login,}} as const)
+    {type: 'SET-USER-DATA', data: {id, email, login}} as const)
 
-export const setIsLoggedInAC = (isLoggedIn: boolean) => ({type:'login/SET-IS-LOGGED-IN', isLoggedIn} as const)
+export const setIsLoggedInAC = (isLoggedIn: boolean) => ({type: 'login/SET-IS-LOGGED-IN', isLoggedIn} as const)
 
-export const getAuthUserData = () => (dispatch: Dispatch) => {
-    AuthMe.me().then(response => {
-        debugger
-        if (response.data.resultCode === 0) {
+
+export const getAuthUserData = () => async (dispatch: Dispatch<ActionsType>) =>  {
+    dispatch(setAppStatusAC('loading'))
+    try {
+        const response = await AuthMe.me()
+        if (response.data.resultCode === Result_Code.OK) {
             let {id, email, login} = response.data.data
             dispatch(setAuthUserData(id, email, login))
             dispatch(setIsLoggedInAC(true))
+            dispatch(setAppStatusAC('succeeded'))
+        } else {
+            handleServerAppError(response.data, dispatch)
         }
-    })
+    }
+    catch (error) {
+        handleServerNetworkError(error as {message: string}, dispatch)
+    } finally {
+        dispatch(setIsInitializedAC(true))
+    }
 }
+
+// {
+//     AuthMe.me().then(response => {
+//         debugger
+//         if (response.data.resultCode === 0) {
+//             let {id, email, login} = response.data.data
+//             dispatch(setAuthUserData(id, email, login))
+//             dispatch(setIsLoggedInAC(true))
+//         } else {
+//             handleServerAppError(response.data, dispatch)
+//     }
+//     })
+// }
+
+
 
 export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<ActionsType>) => {
     dispatch(setAppStatusAC('loading'))
@@ -65,14 +103,13 @@ export const loginTC = (data: LoginParamsType) => async (dispatch: Dispatch<Acti
         } else {
             handleServerAppError(response.data, dispatch)
         }
-    }
-    catch (error) {
-        handleServerNetworkError(error as {message: string}, dispatch)
+    } catch (error) {
+        handleServerNetworkError(error as { message: string }, dispatch)
     }
 
 }
 
-export const logOutTC = () => (dispatch: Dispatch) => {
+export const logOutTC = () => (dispatch: Dispatch<ActionsType>) => {
     AuthMe.logout()
         .then((res) => {
             if (res.data.resultCode === 0) {
@@ -80,21 +117,6 @@ export const logOutTC = () => (dispatch: Dispatch) => {
             }
         })
 }
-
-
-
-
-// export const setIsLoggedInTC = (data: LoginParamsType): ThunkType => (dispatch) => {
-//     AuthMe.login(data)
-//         .then((res)=>{
-//             if (res.data.resultCode === 0){
-//                 dispatch(setIsLoggedInAC(true))
-//             }
-//         })
-// }
-//
-//
-// export type ThunkType = ThunkAction<void, AppStateType, unknown, ActionsTypes>
 
 
 export default authReducer;
