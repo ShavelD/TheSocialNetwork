@@ -40,12 +40,14 @@ export const SET_USER_PROFILE = 'SET-USER-PROFILE';
 export const SET_USER_STATUS = 'SET-USER-STATUS';
 export const UPDATE_USER_STATUS = 'UPDATE-USER-STATUS';
 
+export const posts = [
+    {id: 1, message: "Hi, how are you?", likesCount: 6},
+    {id: 2, message: "It's my first post", likesCount: 10},
+    {id: 3, message: "It's my live", likesCount: 7}
+];
+
 let initialState = {
-    posts: [
-        {id: 1, message: "Hi, how are you?", likesCount: 6},
-        {id: 2, message: "It's my first post", likesCount: 10},
-        {id: 3, message: "It's my live", likesCount: 7}
-    ],
+    posts: posts,
     profile: {
         aboutMe: '',
         contacts: {

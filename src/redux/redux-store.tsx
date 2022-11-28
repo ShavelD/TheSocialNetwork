@@ -27,3 +27,11 @@ export const useAppSelector: TypedUseSelectorHook<AppStateType> = useSelector
 let store = createStore(rootReducer, applyMiddleware(thunk))
 export default store
 
+// store.subscribe(() => {
+//     const posts = store.getState().profilePage.posts;
+//     localStorage.setItem('posts', JSON.stringify(posts))
+// });
+
+// @ts-ignore
+window.store = store;
+

@@ -4,6 +4,7 @@ type PropsType = {
     status: string
     updateUserStatus: (status: string) => void
 }
+
 export const ProfileStatus = (props: PropsType) => {
 
     const [title, setTitle] = useState<string>(props.status)

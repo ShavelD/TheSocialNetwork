@@ -1,7 +1,7 @@
 import React from "react";
 import s from './MyPosts.module.css';
 import {Posts} from "./Post/Posts";
-import {PostsType} from "../../../redux/profile-reducer";
+import {posts, PostsType} from "../../../redux/profile-reducer";
 import {useFormik} from "formik";
 
 
@@ -10,7 +10,18 @@ export type MyPostsPropsType = {
     addPost: (newPostText: string) => void
 }
 
-export function MyPosts(props: MyPostsPropsType) {
+export const  MyPosts = React.memo((props: MyPostsPropsType) => {
+
+    // const [addPosts, setAddPost] = useState<any>('posts')
+    // //Передает в стейт посты,потом сетаем их,
+    //
+    // useEffect(() => {
+    //     localStorage.getItem('posts')
+    // }, [])
+    //
+    //
+    // console.log(props.posts)
+
     let postsElements = props.posts.map((p) =>
         <Posts key={p.id}
                id={p.id}
@@ -20,14 +31,14 @@ export function MyPosts(props: MyPostsPropsType) {
         <div className={s.postsBlock}>
             <h3>My posts</h3>
             <div>
-                <AddPostsForm addPost={props.addPost}/>
+                <AddPostsForm addPost={props.addPost} />
             </div>
             <div className={s.posts}>
                 {postsElements}
             </div>
         </div>
     )
-}
+})
 
 type AddPostTypeForm = {
     addPost: (newPostText: string) => void
@@ -36,6 +47,8 @@ type AddPostTypeForm = {
 type errorsType = {
     newPostText?: string
 }
+
+
 
 const validate = (values: { newPostText: string | any[]; }) => {
     const errors: errorsType = {};
@@ -50,14 +63,19 @@ const validate = (values: { newPostText: string | any[]; }) => {
 }
 
 
-const AddPostsForm = (props: AddPostTypeForm) => {
+const AddPostsForm = React.memo((props: AddPostTypeForm) => {
+    // useEffect(() => {
+    //     localStorage.setItem('posts', JSON.stringify(props.posts))
+    // }, [props.posts])
+    // console.log(props.posts)
+
     const formik = useFormik({
         initialValues: {
             newPostText: ''
         },
         validate,
         onSubmit: values => {
-            alert(JSON.stringify(values));
+            // alert(JSON.stringify(values));
             props.addPost(values.newPostText)
         },
     });
@@ -78,7 +96,7 @@ const AddPostsForm = (props: AddPostTypeForm) => {
             <button type="reset"  onClick={ e => formik.resetForm()}> Reset</button>
         </form>
     );
-};
+});
 
 
 

@@ -8,7 +8,7 @@ export type PostsPropsType = {
     id: number
 }
 
-export function Posts(props: PostsPropsType) {
+export const Posts = React.memo((props: PostsPropsType)=> {
     return (
         <div className={s.item}>
             <img src='https://upload.wikimedia.org/wikipedia/commons/9/9a/Gull_portrait_ca_usa.jpg'/>
@@ -18,4 +18,4 @@ export function Posts(props: PostsPropsType) {
             </div>
         </div>
     )
-}
+})
