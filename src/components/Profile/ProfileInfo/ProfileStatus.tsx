@@ -32,7 +32,6 @@ export const ProfileStatus = (props: PropsType) => {
     )
 }
 
-
 //
 // class ProfileStatus extends React.Component <StatusPropsType,{}> {
 //     state = {
