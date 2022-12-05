@@ -63,7 +63,6 @@ export const AuthMe =  {
     }
 }
 
-
 export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
