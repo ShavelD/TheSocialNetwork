@@ -128,10 +128,11 @@ export const toogleFolowingIsProgress = (isFetching: boolean, userId: number) =>
 
 export default usersReducer;
 
-export const getUsers = (currentPage: number, pageSize: number) => {
+
+export const requestUsers = (requestPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(toggleIsFetching(true))
-        usersAPI.getUsers(currentPage, pageSize)
+        usersAPI.getUsers(requestPage, pageSize)
             .then(data => {
                 dispatch(toggleIsFetching(false))
                 dispatch(setUsers(data.items))
