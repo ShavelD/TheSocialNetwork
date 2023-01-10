@@ -90,9 +90,6 @@ withAuthRedirect
 // })(UsersContainer))
 
 
-
-
-
 // let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
 //     return {
 //         follow: ((userId: number) => {
