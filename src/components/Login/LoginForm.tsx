@@ -1,9 +1,11 @@
 import {useFormik} from "formik";
-import {useAppDispatch, useAppSelector} from "../../redux/redux-store";
+import {useAppDispatch} from "../../redux/redux-store";
 import React from "react";
+import style from "./LoginForm.module.css"
 import {LoginParamsType} from "../../api/api";
 import {loginTC} from "../../redux/auth-reducer";
-
+import {Box, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField} from "@mui/material";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 type errorsType = {
     email?: string,
@@ -43,44 +45,65 @@ export const LoginForm = () => {
             formik.resetForm()
         }
     })
+    const [showPassword, setShowPassword] = React.useState(false);
 
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <div style={{display: "block", padding: "35px 0 0 15px"}}>
-                <div>
-                    <label htmlFor="First name">Email</label>
-                    <input
-                        placeholder={'email'}
-                        {...formik.getFieldProps('email')}
-                    />
-                    {(formik.touched.email && formik.errors.email) ?
-                        <div style={{color: 'red'}}>{formik.errors.email}</div> : ''}
+        <div className={style.wrapper}>
+            <form className={style.form} onSubmit={formik.handleSubmit}>
+                <h1>Sign in</h1>
+                <div className={style.wrapperInput}>
+                    <Box>
+                        <TextField sx={{width: '33ch'}}
+                                   id="input-with-sx" label="Email" variant="standard"
+                                   {...formik.getFieldProps('email')}/>
+                        {formik.touched.email && formik.errors.email ?
+                            <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                    </Box>
                 </div>
-                <div>
-                    <label htmlFor="First name">Password</label>
-                    <input
-                        placeholder={'password'}
-                        type={'password'}
-                        {...formik.getFieldProps('password')}
-                    />
-                    {(formik.touched.password && formik.errors.password) ?
-                        <div style={{color: 'red'}}>{formik.errors.password}</div> : ''}
+                <div className={style.wrapperInput}>
+                    <FormControl sx={{width: '33ch'}} variant="standard">
+                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                        <Input
+                            id="standard-adornment-password"
+                            type={showPassword ? 'text' : 'password'}
+                            {...formik.getFieldProps('password')}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                    >
+                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                        {formik.touched.password && formik.errors.password ?
+                            <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                    </FormControl>
                 </div>
-                <div>
+                <div className={style.wrapperRememberMe}>
                     <input
-                        type={"checkbox"}
-                        {...formik.getFieldProps('rememberMe')}
+                        type={'checkbox'}
                         checked={formik.values.rememberMe}
+                        {...formik.getFieldProps('rememberMe')}
                     />
-                    {(formik.touched.rememberMe && formik.errors.rememberMe) ?
-                        formik.errors.rememberMe : ''}
-                    Remember Me
+                    <div>Remember me</div>
                 </div>
-                <div>
-                    <button type="submit">Login</button>
+                <div className={style.wrapperButton}>
+                    <button type="submit" className={style.button}>Sign In</button>
                 </div>
-            </div>
-        </form>
+                <div className={style.wrapperTextAccount}>
+                    Still don't have an account?
+                </div>
+            </form>
+        </div>
     )
 }
 

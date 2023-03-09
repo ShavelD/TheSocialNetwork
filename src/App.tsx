@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {Navbar} from "./components/Navbar/Navbar";
-import {BrowserRouter,Route} from "react-router-dom";
+import {BrowserRouter, HashRouter, Redirect, Route} from "react-router-dom";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
@@ -22,7 +22,9 @@ function App() {
     useEffect(() => {
         dispatch(getAuthUserData())
     },[])
+
     const isInitialized = useSelector<AppStateType, boolean>(state => state.app.isInitialized)
+    const isLogged = useSelector<AppStateType, boolean>(state => state.auth.isLoggedIn)
 
     if (!isInitialized) {
         return <div
@@ -30,20 +32,27 @@ function App() {
             <CircularProgress/>
         </div>
     }
+
+    // if (!isLogged){
+    //     return <Redirect to={'/'}/>
+    // }
+
     return (
-        <BrowserRouter>
-            <div className="app-wrapper">
-                <HeaderContainer/>
-                <Navbar/>
-                <div className="app-wrapper-content">
-                    <Route path='/Dialogs/' render={() => <DialogsContainer/>}/>
-                    <Route path='/Profile/:userId?' render={() => <ProfileContainer/>}/>
-                    <Route path='/Users/' render={() => <UsersContainer/>}/>
-                    <Route path='/Login/' render={() => <Login/>}/>
-                </div>
-                <ErrorSnackbar/>
-            </div>
-        </BrowserRouter>
+        <HashRouter>
+            {isLogged
+                ? <div className="app-wrapper">
+                    <HeaderContainer/>
+                    <Navbar/>
+                    <div className="app-wrapper-content">
+                        <Route path='/Dialogs/' render={() => <DialogsContainer/>}/>
+                        <Route path='/Profile/:userId?' render={() => <ProfileContainer/>}/>
+                        <Route path='/Users/' render={() => <UsersContainer/>}/>
+                        <Route path='/Login/' render={() => <Login/>}/>
+                    </div>
+                    <ErrorSnackbar/>
+                </div> : <Login/>
+            }
+        </HashRouter>
     );
 }
 
