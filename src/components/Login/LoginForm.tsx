@@ -99,9 +99,9 @@ export const LoginForm = () => {
                 <div className={style.wrapperButton}>
                     <button type="submit" className={style.button}>Sign In</button>
                 </div>
-                <div className={style.wrapperTextAccount}>
-                    Still don't have an account?
-                </div>
+                {/*<div className={style.wrapperTextAccount}>*/}
+                {/*    Still don't have an account?*/}
+                {/*</div>*/}
             </form>
         </div>
     )

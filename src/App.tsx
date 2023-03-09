@@ -33,10 +33,6 @@ function App() {
         </div>
     }
 
-    // if (!isLogged){
-    //     return <Redirect to={'/'}/>
-    // }
-
     return (
         <HashRouter>
             {isLogged
@@ -57,3 +53,5 @@ function App() {
 }
 
 export default App;
+
+
